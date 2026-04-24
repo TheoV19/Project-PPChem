@@ -104,4 +104,3 @@ def detect_functional_groups(smiles):
             }
     return groups_present
     
-print(detect_functional_groups("c1ccccc1"))
