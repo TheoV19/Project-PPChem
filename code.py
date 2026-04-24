@@ -4,6 +4,7 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 import streamlit as st
 from streamlit_ketcher import st_ketcher
+import re
 
 st.title("OrganoMind")
 st.image("image.png", width =300)
@@ -12,6 +13,14 @@ st.header("Welcom on OrganoMind, your organic chemistry assistant 🧪 using Pub
 st.subheader("You can search information on any existant molecules by entering its name, formula, smiles, inchi, inchikey:")
 search_type = st.selectbox("Enter:", ["name", "formula", "smiles", "inchi", "inchikey"])
 urequest = st.text_input(f"Enter the {search_type}")
+
+def filter_cas(synonyms: list[str])-> list[str]:
+    cas = []
+    for s in synonyms:
+        match = re.match("(\d{2,7}-\d\d-\d)", s)
+        if match:
+            return  match.group(1)
+    return None
 
 if urequest:
     with st.spinner("Searching PubChem..."):
@@ -23,9 +32,10 @@ if urequest:
             st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
             st.write("**IUPAC Name:**", c.iupac_name)
             st.write("**Smiles**", c.smiles)
-            st.write("**Common names:**")
-            for s in c.synonyms[:5]:
-                st.write("•", s)
+            #st.write("**Common names:**")
+            #for s in c.synonyms[:5]:
+                #st.write("•", s)
+            st.write("**CAS**", filter_cas(c.synonyms))
             st.write("**Number of rotable bond:**", c.rotatable_bond_count)
             st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
         else:
@@ -45,13 +55,14 @@ if drawing:
             st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
             st.write("**IUPAC Name:**", c.iupac_name)
             st.write("**Smiles**", c.smiles)
-            st.write("**Common names:**")
-            for s in c.synonyms[:5]:
-                st.write("•", s)
+            #st.write("**Common names:**")
+            #for s in c.synonyms[:5]:
+               # st.write("•", s)
+            st.write("**CAS**", filter_cas(c.synonyms))
             st.write("**Number of rotable bond:**", c.rotatable_bond_count)
             st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
         else:
-            st.error("No compound found.")
+            st.error("No compound found.") 
 
 
 
