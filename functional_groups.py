@@ -76,8 +76,6 @@ functional_groups={
     "lactone": "[CX3r](=O)[OX2r]",
 
     "lactam": "[CX3r](=O)[NX3r]",
-
-    "phenol": "[c][OX2H]",
 }
 
 def detect_functional_groups(smiles):
@@ -89,18 +87,21 @@ def detect_functional_groups(smiles):
         dict: A dictionay of detected functional groups and the amount of times.
     """
     mol = Chem.MolFromSmiles(smiles)
+   
     groups_present={}
     
     if mol is None:
         raise ValueError("Invalid Molecule inserted.")
+
     for group, smart in functional_groups.items():
         pattern=Chem.MolFromSmarts(smart)
         matches=mol.GetSubstructMatches(pattern)
         
         if len (matches)>0:
-            groups_present[group]={len(matches)}
+            groups_present[group]={
+                "amount": len(matches),
+                "position": matches
+            }
     return groups_present
     
-    
-
-print(detect_functional_groups("COc1ccc2c3c1OC1C43CCN(C(C2)C4C=CC1O)C")) 
+print(detect_functional_groups("c1ccccc1"))
