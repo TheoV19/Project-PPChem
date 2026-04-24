@@ -77,3 +77,4 @@ functional_groups={
 
     "alkyl halide": "[CX4][F,Cl,Br,I]",
 }
+
