@@ -1,0 +1,58 @@
+# type: ignore
+import pubchempy as pcp  # type: ignore
+from rdkit import Chem
+from rdkit.Chem import Draw
+import streamlit as st
+from streamlit_ketcher import st_ketcher
+
+st.title("OrganoMind")
+st.image("image.png", width =300)
+
+st.header("Welcom on OrganoMind, your organic chemistry assistant 🧪 using PubChem database ! ")
+st.subheader("You can search information on any existant molecules by entering its name, formula, smiles, inchi, inchikey:")
+search_type = st.selectbox("Enter:", ["name", "formula", "smiles", "inchi", "inchikey"])
+urequest = st.text_input(f"Enter the {search_type}")
+
+if urequest:
+    with st.spinner("Searching PubChem..."):
+        results = pcp.get_compounds(urequest, search_type)
+        if results:
+            c = results[0]
+            st.success("Compound found!")
+            st.write("**Formula:**", c.molecular_formula)
+            st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
+            st.write("**IUPAC Name:**", c.iupac_name)
+            st.write("**Smiles**", c.smiles)
+            st.write("**Common names:**")
+            for s in c.synonyms[:5]:
+                st.write("•", s)
+            st.write("**Number of rotable bond:**", c.rotatable_bond_count)
+            st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
+        else:
+            st.error("No compound found.")
+
+#User draw
+st.subheader("or by drawing it:")
+drawing = st_ketcher()
+
+if drawing:
+    with st.spinner("searching PubChem..."):
+        result = pcp.get_compounds(drawing, "smiles")
+        if result:
+            c = result[0]
+            st.success("Compound found!")
+            st.write("**Formula:**", c.molecular_formula)
+            st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
+            st.write("**IUPAC Name:**", c.iupac_name)
+            st.write("**Smiles**", c.smiles)
+            st.write("**Common names:**")
+            for s in c.synonyms[:5]:
+                st.write("•", s)
+            st.write("**Number of rotable bond:**", c.rotatable_bond_count)
+            st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
+        else:
+            st.error("No compound found.")
+
+
+
+
