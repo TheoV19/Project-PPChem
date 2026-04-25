@@ -10,7 +10,7 @@ st.title("OrganoMind")
 st.image("image.png", width =300)
 
 st.header("Welcom on OrganoMind, your organic chemistry assistant 🧪 using PubChem database ! ")
-st.subheader("You can search information on any existant molecules by entering its name, formula, smiles, inchi, inchikey:")
+st.subheader("You can search informations on any existant molecules by entering its name, formula, smiles, inchi, inchikey:")
 search_type = st.selectbox("Enter:", ["name", "formula", "smiles", "inchi", "inchikey"])
 urequest = st.text_input(f"Enter the {search_type}")
 
