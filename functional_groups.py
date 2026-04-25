@@ -31,7 +31,7 @@ functional_groups={
 
     "alkyne": "[CX2]#[CX2]",
 
-    "benzene_ring": "c1ccccc1",
+    "benzene_ring": "[c;!$(c[OX2H])]1[c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])]1",
 
     "halide": "[F,Cl,Br,I]",
 
