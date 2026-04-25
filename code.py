@@ -7,7 +7,7 @@ from streamlit_ketcher import st_ketcher
 import re
 
 st.title("OrganoMind")
-st.image("image.png", width =300)
+st.image("image.png", width =500)
 
 st.header("Welcom on OrganoMind, your organic chemistry assistant 🧪 using PubChem database ! ")
 st.subheader("You can search informations on any existant molecules by entering its name, formula, smiles, inchi, inchikey:")
