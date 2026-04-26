@@ -22,6 +22,7 @@ def filter_cas(synonyms: list[str])-> list[str]:
             return  match.group(1)
     return None
 
+#User enter name, molecular formula,...
 if urequest:
     with st.spinner("Searching PubChem..."):
         results = pcp.get_compounds(urequest, search_type)
