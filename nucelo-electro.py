@@ -8,9 +8,9 @@ def electro_nucleo_sites(mol):
     Find the most electrophilic and nucleophilic site of the molecule
 
     Arg:
-        smiles (str): SMILES string of the molecule.
+        mol (str or rdkit.Chem.Mol): SMILES string or RDKit Mol object.
     Returns:
-
+        
     """
     if isinstance(mol, str):
         mol = Chem.MolFromSmiles(mol)
