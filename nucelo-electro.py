@@ -5,9 +5,12 @@ from rdkit import Chem
 
 def electro_nucleo_sites(mol):
     """
-    Approximation simple : charge de Gasteiger
-    charge > 0  → site électrophile
-    charge < 0  → site nucléophile
+    Find the most electrophilic and nucleophilic site of the molecule
+
+    Arg:
+        mol (str or rdkit.Chem.Mol): SMILES string or RDKit Mol object.
+    Returns:
+        
     """
     if isinstance(mol, str):
         mol = Chem.MolFromSmiles(mol)
@@ -25,5 +28,17 @@ def electro_nucleo_sites(mol):
             "charge":   round(charge, 4),
             "type":     "electrophile" if charge > 0 else "nucleophile"
         })
+        # Site le plus électrophile = charge la plus positive
+    most_electrophilic = max(results, key=lambda x: x["charge"])
+    
+    # Site le plus nucléophile = charge la plus négative
+    most_nucleophilic  = min(results, key=lambda x: x["charge"])
 
-    return results
+    print(f"Most electrophilic site: {most_electrophilic['symbol']}{most_electrophilic['atom_idx']} (charge = {most_electrophilic['charge']})")
+    print(f"Most nucleophilic site:  {most_nucleophilic['symbol']}{most_nucleophilic['atom_idx']} (charge = {most_nucleophilic['charge']})")
+
+    return most_electrophilic, most_nucleophilic 
+
+
+
+print(electro_nucleo_sites("C[C@]12CC[C@H]3[C@@H](O)C=C[C@H]4[C@@H]3Oc5c(O)ccc(c5C4=O)[C@H]1N(CC2)C"))
