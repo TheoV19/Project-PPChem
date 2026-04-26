@@ -103,4 +103,3 @@ def detect_functional_groups(smiles):
                 "position": matches
             }
     return groups_present
-    
