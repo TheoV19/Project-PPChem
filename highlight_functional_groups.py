@@ -163,8 +163,3 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
         file.write(svg)
 
     return svg
-
-draw_molecule_with_functional_groups(
-    "O=C1[C@@H]2OC3=C(O)C=CC4=C3[C@@]2([C@]5(CC1)O)CCN(CC=C)[C@@H]5C4",
-    "momo_leonardo_dicaprio.svg"
-)
