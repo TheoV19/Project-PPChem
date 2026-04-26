@@ -17,7 +17,7 @@ def draw2D(smiles: str) -> str:
         f.write(svg)
     return svg
 
-draw2D("CN1[C@H]2CC[C@@H]1[C@H]([C@H](C2)OC(=O)C3=CC=CC=C3)C(=O)OC")
+draw2D("CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3")
 
 
 #second version

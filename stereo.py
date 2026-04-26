@@ -39,7 +39,7 @@ def color_chiral(smiles: str):
 
     drawer = rdMolDraw2D.MolDraw2DSVG(400, 300)
     
-    highlight_colors = {idx: (1, 0, 0) for idx in chiral_atoms}  
+    highlight_colors = {idx: (0, 1, 0) for idx in chiral_atoms}  
     
     #drawer also highlight bonds
     highlight_bond_colors: dict = {}
@@ -68,8 +68,8 @@ def find_isomers(smiles: str) -> int:
     molecule = Chem.MolFromSmiles(smiles)
     if molecule is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
-    
-    options = StereoEnumerationOptions(unique=True, tryEmbedding=True)
+
+    options = StereoEnumerationOptions(unique=True, onlyUnassigned=False, tryEmbedding=True)
     isomers = tuple(EnumerateStereoisomers(molecule, options=options))
     number = len(isomers)  
     print(f"Number of stereoisomers: {number}")
@@ -77,11 +77,11 @@ def find_isomers(smiles: str) -> int:
     return number  
 
 
+smiles: str= "CC(C)C[C@@H]([C@H](CC(=O)O)O)N"
 
-
-chrial_center("CN1[C@H]2CC[C@@H]1[C@H]([C@H](C2)OC(=O)C3=CC=CC=C3)C(=O)OC")
-color_chiral("CN1[C@H]2CC[C@@H]1[C@H]([C@H](C2)OC(=O)C3=CC=CC=C3)C(=O)OC")
-find_isomers("CN1[C@H]2CC[C@@H]1[C@H]([C@H](C2)OC(=O)C3=CC=CC=C3)C(=O)OC")
+chrial_center(smiles)
+color_chiral(smiles)
+find_isomers(smiles)
 
 
 
