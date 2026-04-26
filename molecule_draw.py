@@ -17,6 +17,22 @@ def draw2D(smiles: str) -> str:
         f.write(svg)
     return svg
 
-draw2D("CNCCCNCC")
+draw2D("CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3")
 
 
+#second version
+#def draw(smiles: str, size=(400, 300), save_as=None):
+ #   mol = Chem.MolFromSmiles(smiles)
+  #  if mol is None:
+   #     raise ValueError("Unexistant Smiles")
+     
+   # img = Draw.MolToImage(mol, size=size)
+    
+    #if save_as:
+   #     img.save(save_as)
+    #    print(f"Saved to {save_as}")
+    
+    #img.show()   
+    #return img
+
+#draw("CCCNNCCNNC", save_as="molecule.png")
