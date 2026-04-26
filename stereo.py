@@ -8,10 +8,11 @@ from rdkit.Chem import EnumerateStereoisomers
 import streamlit as st
 
 
-mol = Chem.MolFromSmiles("CCCCC")  
-mol_with_h = Chem.AddHs(mol)
+molecule = Chem.MolFromSmiles("CCCCC")  
 
-AllChem.EmbedMolecule(mol_with_h)
+molecule.FindPotentialStereo()
+
+
 
 
 

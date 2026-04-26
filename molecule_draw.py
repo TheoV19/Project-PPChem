@@ -21,18 +21,18 @@ draw2D("CNCCCNCC")
 
 
 #second version
-def draw(smiles: str, size=(400, 300), save_as=None):
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        raise ValueError("Unexistant Smiles")
+#def draw(smiles: str, size=(400, 300), save_as=None):
+ #   mol = Chem.MolFromSmiles(smiles)
+  #  if mol is None:
+   #     raise ValueError("Unexistant Smiles")
      
-    img = Draw.MolToImage(mol, size=size)
+   # img = Draw.MolToImage(mol, size=size)
     
-    if save_as:
-        img.save(save_as)
-        print(f"Saved to {save_as}")
+    #if save_as:
+   #     img.save(save_as)
+    #    print(f"Saved to {save_as}")
     
-    img.show()   
-    return img
+    #img.show()   
+    #return img
 
-draw("CCCNNCCNNC", save_as="molecule.png")
+#draw("CCCNNCCNNC", save_as="molecule.png")
