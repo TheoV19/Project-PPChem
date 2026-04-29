@@ -86,12 +86,15 @@ def acid_base_estimate (smiles):
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         raise ValueError("Invalid Molecule inserted.")
+    
     detected_groups = detect_functional_groups(smiles)
     acidic_groups=[]
     basic_groups=[]
+    
     for group, group_info in detected_groups.items():
-        if group in acid_base_info:
-            values=acid_base_info[group]
+        if group not in acid_base_info:
+            continue
+        values=acid_base_info[group]
         result = {
             "group": group,
             "count": group_info["amount"],
@@ -101,12 +104,14 @@ def acid_base_estimate (smiles):
             "pka_range": values["pka_range"],
             "priority": values["priority"]
         }
+        
         if values["type"]=="acidic":
             acidic_groups.append(result)
         elif values["type"]=="basic":
             basic_groups.append(result)
-        acidic_groups.sort(key=lambda x: x["priority"])
-        basic_groups.sort(key=lambda x: x["priority"])
+        
+    acidic_groups.sort(key=lambda x: x["priority"])
+    basic_groups.sort(key=lambda x: x["priority"])
+    
+    print (acidic_groups, basic_groups)
     return acidic_groups, basic_groups
-
-print(acid_base_estimate("CC(N)C(=O)O"))
