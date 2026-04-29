@@ -101,7 +101,7 @@ def electro_nucleo_sites_hsab(mol):
         hsab   = HSAB_rules.get(group, {"nucleo": 0.0, "electro": 0.0})
         formal_charge = atom.GetFormalCharge()
         charge_bonus = 0.0
-
+        #Check si il y a des charges formelles (O-, )
         if formal_charge < 0:
             charge_bonus = -0.50  # Bonus massif pour un atome chargé négativement
         elif formal_charge > 0:
