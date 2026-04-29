@@ -14,6 +14,8 @@ st.subheader("You can search informations on any existant molecules by entering 
 search_type = st.selectbox("Enter:", ["name", "formula", "smiles", "inchi", "inchikey"])
 urequest = st.text_input(f"Enter the {search_type}")
 
+info = st.multiselect("I want informations about:", options=["Molecular formula", "Molecular weight", "IUPAC name", "SMILES", "CAS", "Number of rotable bond", "Number of stereocenter"], default=["Molecular formula"])
+
 def filter_cas(synonyms: list[str])-> list[str]:
     cas = []
     for s in synonyms:
