@@ -1,178 +1,143 @@
 import rdkit as rd
 from rdkit.Chem import AllChem, rdPartialCharges
 from rdkit import Chem 
- 
-def get_atom_environment(atom, mol):
+from functional_groups import detect_functional_groups
+
+# Table HSAB : pour chaque groupe fonctionnel
+# nucleo_score : plus négatif = meilleur nucléophile
+# electro_score : plus positif = meilleur électrophile
+
+HSAB_rules = {
+    # Nucléophiles mous (polarisables)
+    "thiol":            {"nucleo": -0.80, "electro":  0.00},
+    "sulfide":          {"nucleo": -0.65, "electro":  0.00},
+    "isothiocyanate":   {"nucleo": -0.50, "electro":  0.00},
+
+    # Nucléophiles intermédiaires
+    "primary_amine":    {"nucleo": -0.60, "electro":  0.00},
+    "secondary_amine":  {"nucleo": -0.45, "electro":  0.00},
+    "tertiary_amine":   {"nucleo": -0.40, "electro":  0.00},
+    "alcohol":          {"nucleo": -0.55, "electro":  0.00},
+    "phenol":           {"nucleo": -0.25, "electro":  0.00},
+    "ether":            {"nucleo": -0.15, "electro":  0.00},
+    "alkene":           {"nucleo": -0.20, "electro":  0.00},
+    "imine":            {"nucleo": -0.20, "electro":  0.00},
+
+    # Électrophiles forts
+    "acyl_chloride":    {"nucleo":  0.00, "electro":  0.90},
+    "anhydride":        {"nucleo":  0.00, "electro":  0.80},
+    "aldehyde":         {"nucleo":  0.00, "electro":  0.70},
+    "ketone":           {"nucleo":  0.00, "electro":  0.60},
+    "ester":            {"nucleo":  0.00, "electro":  0.55},
+    "carboxylic_acid":  {"nucleo":  -0.50, "electro":  0.50},
+    "amide":            {"nucleo":  0.00, "electro":  0.15},
+    "nitro":            {"nucleo":  0.00, "electro":  0.40},
+    "nitrile":          {"nucleo":  0.00, "electro":  0.50},
+    "isocyanate":       {"nucleo":  0.00, "electro":  0.70},
+    "alkyl_halide":     {"nucleo":  0.00, "electro":  0.50},
+    "epoxide":          {"nucleo":  0.00, "electro":  0.65},
+    "sulfonyl_chloride":{"nucleo":  0.00, "electro":  0.85},
+    "sulfoxide":        {"nucleo":  0.00, "electro":  0.40},
+    "sulfone":          {"nucleo":  0.00, "electro":  0.45},
+    "lactone":          {"nucleo":  0.00, "electro":  0.60},
+    "lactam":           {"nucleo":  0.00, "electro":  0.75},
+}
+
+
+def electro_nucleo_sites_hsab(mol):
     """
-    Determines the chemical environment of an atom for bonus corrections.
-    """
-    symbol = atom.GetSymbol()
-    is_aromatic = atom.GetIsAromatic()
-    neighbors = [mol.GetAtomWithIdx(n.GetIdx()) for n in atom.GetNeighbors()]
-    neighbor_symbols = [n.GetSymbol() for n in neighbors]
-    neighbor_bonds = [mol.GetBondBetweenAtoms(atom.GetIdx(), n.GetIdx()).GetBondTypeAsDouble() 
-                      for n in atom.GetNeighbors()]
- 
-    env = {
-        "symbol": symbol,
-        "is_aromatic": is_aromatic,
-        "neighbors": neighbor_symbols,
-        "bonds": neighbor_bonds,
-    }
- 
-    # --- NITROGEN ---
-    if symbol == "N":
-        if is_aromatic:
-            env["type"] = "N_aromatic"
-        # Nitro group: N+ avec 2 O voisins
-        elif atom.GetFormalCharge() == 1 and neighbor_symbols.count("O") >= 2:
-            env["type"] = "N_nitro"
-        else:
-            env["type"] = "N_aliphatic"
- 
-    # --- OXYGEN ---
-    elif symbol == "O":
-        # Nitro O: voisin d'un N chargé positivement → en premier
-        if any(mol.GetAtomWithIdx(n.GetIdx()).GetSymbol() == "N" and
-               mol.GetAtomWithIdx(n.GetIdx()).GetFormalCharge() == 1
-               for n in atom.GetNeighbors()):
-            env["type"] = "O_nitro"
-        # Phenolic O: attached to aromatic carbon
-        elif any(mol.GetAtomWithIdx(n.GetIdx()).GetIsAromatic() 
-               for n in atom.GetNeighbors()):
-            env["type"] = "O_phenol"
-        # Carbonyl O: double bond to C
-        elif 2.0 in neighbor_bonds:
-            env["type"] = "O_carbonyl"
-        else:
-            env["type"] = "O_alcohol"
- 
-    # --- SULFUR ---
-    elif symbol == "S":
-        env["type"] = "S"
- 
-    # --- CARBON ---
-    elif symbol == "C":
-        # Carbonyl C: double bond to O → toujours en premier
-        if "O" in neighbor_symbols and 2.0 in neighbor_bonds:
-            env["type"] = "C_carbonyl"
- 
-        elif is_aromatic:
-            env["type"] = "C_aromatic"
- 
-        elif 2.0 in neighbor_bonds:
-            # Michael acceptor: C=C adjacent to C=O
-            is_michael = False
-            for n in atom.GetNeighbors():
-                n_atom = mol.GetAtomWithIdx(n.GetIdx())
-                n_neighbors_symbols = [mol.GetAtomWithIdx(nn.GetIdx()).GetSymbol() 
-                                       for nn in n_atom.GetNeighbors()]
-                n_bonds = [mol.GetBondBetweenAtoms(n_atom.GetIdx(), 
-                           mol.GetAtomWithIdx(nn.GetIdx()).GetIdx()).GetBondTypeAsDouble() 
-                           for nn in n_atom.GetNeighbors()]
-                if "O" in n_neighbors_symbols and 2.0 in n_bonds:
-                    is_michael = True
-                    break
-            env["type"] = "C_michael" if is_michael else "C_other"
- 
-        else:
-            env["type"] = "C_other"
- 
-    else:
-        env["type"] = f"{symbol}_other"
- 
-    return env
- 
- 
-def nucleophilicity_score(charge, env_type):
-    """Lower score = better nucleophile."""
-    bonus = {
-        "N_aliphatic": 0.25,
-        "N_aromatic":  0.05,
-        "N_nitro":    -0.20,  # malus: N_nitro est électrophile
-        "O_alcohol":   0.02,
-        "O_phenol":    0.20,  # doublet délocalisé = mauvais nucléophile
-        "O_carbonyl":  0.05,  # très mauvais nucléophile
-        "O_nitro":     0.10,  # charge brute utilisée directement
-        "S":           0.10,
-    }
-    return charge - bonus.get(env_type, 0.0)
- 
- 
-def electrophilicity_score(charge, env_type):
-    """Higher score = better electrophile."""
-    bonus = {
-        "C_carbonyl": 0.20,
-        "C_michael":  0.08,
-        "C_aromatic": 0.03,
-        "N_nitro":    0.15,  # N du groupe nitro est électrophile
-    }
-    return charge + bonus.get(env_type, 0.0)
- 
- 
-def electro_nucleo_sites(mol):
-    """
-    Find the most electrophilic and nucleophilic sites of the molecule,
-    with chemical environment corrections (carbonyl, Michael acceptor,
-    aromatic, aliphatic, phenol, nitro...).
- 
+    Find the most electrophilic and nucleophilic sites using Gasteiger
+    charges corrected by HSAB theory and functional group detection.
+
     Args:
         mol (str or rdkit.Chem.Mol): SMILES string or RDKit Mol object.
- 
+
     Returns:
-        tuple: A tuple (most_electrophilic, most_nucleophilic) where each
-               element is a dictionary with the following keys:
-                   - atom_idx   (int)   : atom index in the molecule
-                   - symbol     (str)   : atomic symbol (e.g. 'C', 'N', 'O')
-                   - charge     (float) : raw Gasteiger partial charge
-                   - env_type   (str)   : detected chemical environment
-                   - nuc_score  (float) : corrected nucleophilicity score
-                   - elec_score (float) : corrected electrophilicity score
-                   - type       (str)   : 'electrophile' or 'nucleophile'
+        tuple: (most_electrophilic, most_nucleophilic) dicts with keys:
+                   - atom_idx   (int)
+                   - symbol     (str)
+                   - charge     (float)
+                   - env_type   (str)
+                   - nuc_score  (float)
+                   - elec_score (float)
+                   - functional_group (str) : groupe fonctionnel HSAB associé
     """
+    smiles = mol if isinstance(mol, str) else Chem.MolToSmiles(mol)
     if isinstance(mol, str):
         mol = Chem.MolFromSmiles(mol)
- 
+
     rdPartialCharges.ComputeGasteigerCharges(mol)
- 
+
+    # Détecter les groupes fonctionnels et leurs atomes
+    groups = detect_functional_groups(smiles)
+
+    # Construire un dict {atom_idx: (group_name, hsab_scores)}
+    atom_to_group = {}
+    for group_name, info in groups.items():
+        if group_name not in HSAB_rules:
+            continue
+        for match in info["position"]:
+            for atom_idx in match:
+                # Garder le groupe avec le score le plus extrême
+                if atom_idx not in atom_to_group:
+                    atom_to_group[atom_idx] = group_name
+                else:
+                    # Si l'atome appartient à plusieurs groupes, garder
+                    # celui avec le score HSAB le plus fort
+                    current = HSAB_rules[atom_to_group[atom_idx]]
+                    new     = HSAB_rules[group_name]
+                    if (abs(new["nucleo"]) + abs(new["electro"]) >
+                        abs(current["nucleo"]) + abs(current["electro"])):
+                        atom_to_group[atom_idx] = group_name
+
     results = []
     for atom in mol.GetAtoms():
-        if atom.GetAtomicNum() == 1:  # ignore H
+        if atom.GetAtomicNum() == 1:
             continue
- 
+
+        idx    = atom.GetIdx()
         charge = atom.GetDoubleProp("_GasteigerCharge")
-        env = get_atom_environment(atom, mol)
-        env_type = env["type"]
- 
+        group  = atom_to_group.get(idx, None)
+        hsab   = HSAB_rules.get(group, {"nucleo": 0.0, "electro": 0.0})
+        formal_charge = atom.GetFormalCharge()
+        charge_bonus = 0.0
+
+        if formal_charge < 0:
+            charge_bonus = -0.50  # Bonus massif pour un atome chargé négativement
+        elif formal_charge > 0:
+            charge_bonus = 0.50   # Malus pour la nucléophilie si l'atome est positif
+
+        nuc_score = round(charge + hsab["nucleo"] + charge_bonus, 4)
+
+        nuc_score  = round(charge + hsab["nucleo"],  4)
+        elec_score = round(charge + hsab["electro"], 4)
+
         results.append({
-            "atom_idx":   atom.GetIdx(),
-            "symbol":     atom.GetSymbol(),
-            "charge":     round(charge, 4),
-            "env_type":   env_type,
-            "nuc_score":  round(nucleophilicity_score(charge, env_type), 4),
-            "elec_score": round(electrophilicity_score(charge, env_type), 4),
-            "type":       "electrophile" if charge > 0 else "nucleophile"
+            "atom_idx":        idx,
+            "symbol":          atom.GetSymbol(),
+            "charge":          round(charge, 4),
+            "functional_group": group if group else "none",
+            "nuc_score":       nuc_score,
+            "elec_score":      elec_score,
+            "type":            "electrophile" if charge > 0 else "nucleophile"
         })
- 
+
     most_electrophilic = max(results, key=lambda x: x["elec_score"])
     most_nucleophilic  = min(results, key=lambda x: x["nuc_score"])
- 
-    print(f"Most electrophilic site: {most_electrophilic['symbol']}"
+
+    print(f"Most electrophilic: {most_electrophilic['symbol']}"
           f"{most_electrophilic['atom_idx']} "
-          f"({most_electrophilic['env_type']}, "
+          f"({most_electrophilic['functional_group']}, "
           f"charge = {most_electrophilic['charge']}, "
           f"score = {most_electrophilic['elec_score']})")
- 
-    print(f"Most nucleophilic site:  {most_nucleophilic['symbol']}"
+
+    print(f"Most nucleophilic:  {most_nucleophilic['symbol']}"
           f"{most_nucleophilic['atom_idx']} "
-          f"({most_nucleophilic['env_type']}, "
+          f"({most_nucleophilic['functional_group']}, "
           f"charge = {most_nucleophilic['charge']}, "
           f"score = {most_nucleophilic['nuc_score']})")
- 
+
     return most_electrophilic, most_nucleophilic
- 
- 
-print(electro_nucleo_sites("C1=CC(=CC=C1C=O)[N+](=O)[O-]"))
 
+print(electro_nucleo_sites_hsab("OC=C1[C@@H](O[C@H]2CC(=O)N12)C(=O)O"))
 
-#paga was here
