@@ -115,5 +115,3 @@ def acid_base_estimate (smiles):
     
     print (acidic_groups, basic_groups)
     return acidic_groups, basic_groups
-
-acid_base_estimate("O=C1[C@@H]2OC3=C(O)C=CC4=C3[C@@]2([C@]5(CC1)O)CCN(CC=C)[C@@H]5C4")
