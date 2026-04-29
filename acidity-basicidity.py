@@ -89,7 +89,6 @@ def acid_base_estimate (smiles):
     detected_groups = detect_functional_groups(smiles)
     acidic_groups=[]
     basic_groups=[]
-    neutral_groups=[]
     for group, group_info in detected_groups.items():
         if group in acid_base_info:
             values=acid_base_info[group]
