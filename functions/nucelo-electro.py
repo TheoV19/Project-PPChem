@@ -1,7 +1,7 @@
 import rdkit as rd
 from rdkit.Chem import AllChem, rdPartialCharges
 from rdkit import Chem 
-from functional_groups import detect_functional_groups
+from functional_groups import detect_functional_groups # type: ignore
 
 # Table HSAB : pour chaque groupe fonctionnel
 # nucleo_score : plus négatif = meilleur nucléophile

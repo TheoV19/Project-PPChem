@@ -1,7 +1,7 @@
-import pubchempy as pcp 
+import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
-from functional_groups import detect_functional_groups
+from functional_groups import detect_functional_groups # type: ignore
 
 acid_base_info = {
     "carboxylic_acid": {

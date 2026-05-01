@@ -5,6 +5,7 @@ from rdkit.Chem import Draw
 import streamlit as st
 from streamlit_ketcher import st_ketcher
 import re
+from functions.draw3D import draw_molecule_3d
 
 st.title("OrganoMind")
 st.image("image.png", width =500)

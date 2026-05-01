@@ -1,7 +1,7 @@
-import pubchempy as pcp 
+import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
-from functional_groups import functional_groups, detect_functional_groups
+from functional_groups import functional_groups, detect_functional_groups # type: ignore
 from rdkit.Chem.Draw import rdMolDraw2D
 import re
 

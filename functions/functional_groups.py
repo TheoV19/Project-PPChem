@@ -1,4 +1,4 @@
-import pubchempy as pcp 
+import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
 

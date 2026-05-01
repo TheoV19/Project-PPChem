@@ -2,7 +2,7 @@ import rdkit as rd
 from rdkit import Chem 
 from rdkit.Chem import Draw
 from rdkit.Chem import AllChem
-from functional_groups import detect_functional_groups
+from functional_groups import detect_functional_groups # type: ignore
 
 
 
