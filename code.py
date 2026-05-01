@@ -6,6 +6,8 @@ import streamlit as st
 from streamlit_ketcher import st_ketcher
 import re
 from functions.draw3D import draw_molecule_3d
+from functions.functional_groups import functional_groups, detect_functional_groups
+import pandas as pd
 
 st.title("OrganoMind")
 st.image("image.png", width =500)
@@ -15,7 +17,7 @@ st.subheader("You can search informations on any existant molecules by entering 
 search_type = st.selectbox("Enter:", ["name", "formula", "smiles", "inchi", "inchikey"])
 urequest = st.text_input(f"Enter the {search_type}")
 
-info = st.multiselect("I want informations about:", options=["Molecular formula", "Molecular weight", "IUPAC name", "SMILES", "CAS", "Number of rotable bond", "Number of stereocenter"], default=["Molecular formula"])
+info = st.multiselect("I want informations about:", options=["Molecular formula", "Molecular weight", "IUPAC name", "SMILES", "CAS", "Number of rotable bond", "Number of stereocenter", "3D drawing"], default=["Molecular formula"])
 
 def filter_cas(synonyms: list[str])-> list[str]:
     cas = []
@@ -42,6 +44,13 @@ if urequest:
             st.write("**CAS**", filter_cas(c.synonyms))
             st.write("**Number of rotable bond:**", c.rotatable_bond_count)
             st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
+
+            groups = detect_functional_groups(c.smiles)
+            df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in groups.items()])
+            st.write("**The functional groups present in the molecule are:")
+            st.dataframe(df)
+            st.write("**3D drawing of the molecule**")
+            draw_molecule_3d(c.smiles)
         else:
             st.error("No compound found.")
 

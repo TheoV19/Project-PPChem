@@ -27,4 +27,4 @@ def draw_molecule_3d(smiles, style='stick', color='spectrum',
     
     components.html(view._make_html(), height=height)
 
-draw_molecule_3d('CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3')
+# draw_molecule_3d('CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3')
