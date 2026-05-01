@@ -28,8 +28,3 @@ def point_group (smiles):
     molecule = Molecule(species, coords)
     analyzer = PointGroupAnalyzer(molecule)
     return analyzer.sch_symbol  
-
-print(point_group("C"))          # methane, should be around Td
-print(point_group("O"))          # water, should be around C2v
-print(point_group("N"))          # ammonia, should be around C3v
-print(point_group("c1ccccc1"))   # benzene, should be around D6h
