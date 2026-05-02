@@ -44,11 +44,8 @@ if urequest:
             st.write("**CAS**", filter_cas(c.synonyms))
             st.write("**Number of rotable bond:**", c.rotatable_bond_count)
             st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
-
-            groups = detect_functional_groups(c.smiles)
-            df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in groups.items()])
             st.write("**The functional groups present in the molecule are:")
-            st.dataframe(df)
+            st.dataframe(detect_functional_groups(c.smiles))
             st.write("**3D drawing of the molecule**")
             draw_molecule_3d(c.smiles)
         else:

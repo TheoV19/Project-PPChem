@@ -1,6 +1,7 @@
 import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
+import pandas as pd #type: ignore
 
 functional_groups={
     "carboxylic_acid": "[CX3](=O)[OX2H1]",
@@ -102,4 +103,5 @@ def detect_functional_groups(smiles):
                 "amount": len(matches),
                 "position": matches
             }
-    return groups_present
+    df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in groups_present.items()])
+    return df
