@@ -33,14 +33,13 @@ def detect_aromaticity(smiles: str):
       if all(mol.GetAtomWithIdx(atom_idx).GetIsAromatic() for atom_idx in ring):
         aromatic_rings.append(list(ring))
 
-    print(f"is_aromatic: {len(aromatic_rings)} > 0")
-    print(f"number_of_aromatic_rings: {len(aromatic_rings)}")
-    print(f"aromatic_atoms: {aromatic_atoms}") 
-    print(f"aromatic_bonds: {aromatic_bonds}")
-    print(f"aromatic_rings: {aromatic_rings}")
-    print(f"functional_groups: {detected_groups}")
-
-    df_aromatic = pd.DataFrame()
-    return aromatic_rings, aromatic_atoms, aromatic_bonds, detected_groups
+    # print(f"is_aromatic: {len(aromatic_rings)} > 0")
+    # print(f"number_of_aromatic_rings: {len(aromatic_rings)}")
+    # print(f"aromatic_atoms: {aromatic_atoms}") 
+    # print(f"aromatic_bonds: {aromatic_bonds}")
+    # print(f"aromatic_rings: {aromatic_rings}")
+    # print(f"functional_groups: {detected_groups}")
+    nb_aromatic = len(aromatic_rings)
+    return aromatic_rings, nb_aromatic, aromatic_atoms, aromatic_bonds, detected_groups
 
 # detect_aromaticity("CC[C@]1(C[C@@H](C2=C(C1)C(=C3C(=C2O)C(=O)C4=C(C3=O)C=CC=C4OC)O)O[C@H]5C[C@@H]([C@@H]([C@@H](O5)C)O)N)O.Cl")

@@ -53,7 +53,8 @@ if urequest:
             st.dataframe(detect_functional_groups(c.smiles))
             #Add the 2D drawing of the molecule with functional group highlighted
 
-            st.write("**Informations related to the aromaticity of the molecule**", detect_aromaticity(c.smiles))
+            nb_aromatic = detect_aromaticity(c.smiles)
+            st.write("**Number of aromatic ring:**", nb_aromatic)
 
             df_acidic, df_basic = acid_base_estimate(c.smiles)
             st.write("**Acidic groups:**")
