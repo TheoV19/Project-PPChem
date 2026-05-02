@@ -8,6 +8,9 @@ import re
 from functions.draw3D import draw_molecule_3d
 from functions.functional_groups import functional_groups, detect_functional_groups
 import pandas as pd
+from functions.stereo import chiral_center, color_chiral, find_isomers
+from functions.acidity import acid_base_info, acid_base_estimate
+from functions.aromatic import detect_aromaticity
 
 st.title("OrganoMind")
 st.image("image.png", width =500)
@@ -38,16 +41,29 @@ if urequest:
             st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
             st.write("**IUPAC Name:**", c.iupac_name)
             st.write("**Smiles**", c.smiles)
-            #st.write("**Common names:**")
-            #for s in c.synonyms[:5]:
-                #st.write("•", s)
             st.write("**CAS**", filter_cas(c.synonyms))
             st.write("**Number of rotable bond:**", c.rotatable_bond_count)
-            st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
-            st.write("**The functional groups present in the molecule are:")
+
+            st.write("**Number of chiral center:**", chiral_center(c.smiles))
+            st.write("**Number of existant isomers:**", find_isomers(c.smiles))
+            st.write("**Representation of chiral center on the molecule's 2D drawing:**")
+            color_chiral(c.smiles)
+
+            st.write("**The functional groups present in the molecule are:**")
             st.dataframe(detect_functional_groups(c.smiles))
+            #Add the 2D drawing of the molecule with functional group highlighted
+
+            st.write("**Informations related to the aromaticity of the molecule**", detect_aromaticity(c.smiles))
+
+            df_acidic, df_basic = acid_base_estimate(c.smiles)
+            st.write("**Acidic groups:**")
+            st.dataframe(df_acidic)
+            st.write("**Basic groups:**")
+            st.dataframe(df_basic)
+
             st.write("**3D drawing of the molecule**")
             draw_molecule_3d(c.smiles)
+        
         else:
             st.error("No compound found.")
 

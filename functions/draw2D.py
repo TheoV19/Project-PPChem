@@ -5,7 +5,7 @@ from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
 
 
-def draw2D(smiles: str) -> str:
+def draw_molecule_2D(smiles: str) -> str:
     molecule = Chem.MolFromSmiles(smiles)
     if molecule is None:
         raise ValueError(f"Invalid SMILES string: {smiles}")
@@ -18,7 +18,7 @@ def draw2D(smiles: str) -> str:
         f.write(svg)
     return svg
 
-draw2D("CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3")
+# draw2D("CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3")
 
 
 #second version

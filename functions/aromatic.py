@@ -2,8 +2,8 @@ import rdkit as rd
 from rdkit import Chem 
 from rdkit.Chem import Draw
 from rdkit.Chem import AllChem
-from functional_groups import detect_functional_groups # type: ignore
-
+from functions.functional_groups import detect_functional_groups # type: ignore
+import pandas as pd #type: ignore
 
 
 def detect_aromaticity(smiles: str):
@@ -40,6 +40,7 @@ def detect_aromaticity(smiles: str):
     print(f"aromatic_rings: {aromatic_rings}")
     print(f"functional_groups: {detected_groups}")
 
+    df_aromatic = pd.DataFrame()
     return aromatic_rings, aromatic_atoms, aromatic_bonds, detected_groups
 
-detect_aromaticity("CC[C@]1(C[C@@H](C2=C(C1)C(=C3C(=C2O)C(=O)C4=C(C3=O)C=CC=C4OC)O)O[C@H]5C[C@@H]([C@@H]([C@@H](O5)C)O)N)O.Cl")
+# detect_aromaticity("CC[C@]1(C[C@@H](C2=C(C1)C(=C3C(=C2O)C(=O)C4=C(C3=O)C=CC=C4OC)O)O[C@H]5C[C@@H]([C@@H]([C@@H](O5)C)O)N)O.Cl")

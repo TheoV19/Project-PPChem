@@ -79,7 +79,7 @@ functional_groups={
     "lactam": "[CX3r](=O)[NX3r]",
 }
 
-def detect_functional_groups(smiles):
+def detect_functional_groups(smiles, return_df = True):
     """
     Finds functional groups if present.
     Args:
@@ -104,4 +104,8 @@ def detect_functional_groups(smiles):
                 "position": matches
             }
     df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in groups_present.items()])
-    return df
+
+    if return_df:
+        return df
+
+    return groups_present

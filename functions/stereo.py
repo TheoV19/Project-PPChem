@@ -3,13 +3,12 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
-from molecule_draw import draw2D # type: ignore
 from rdkit.Chem.EnumerateStereoisomers import EnumerateStereoisomers, StereoEnumerationOptions
+import streamlit as st
 
 
 
-
-def chrial_center(smiles: str)-> int:
+def chiral_center(smiles: str)-> int:
     molecule = Chem.MolFromSmiles(smiles)
     if molecule is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
@@ -37,29 +36,8 @@ def color_chiral(smiles: str):
     else:
         print(f"Chiral centers of atoms : {chiral_atoms}")
 
-    drawer = rdMolDraw2D.MolDraw2DSVG(400, 300)
-    
-    highlight_colors = {idx: (0, 1, 0) for idx in chiral_atoms}  
-    
-    #drawer also highlight bonds
-    highlight_bond_colors: dict = {}
-    highlight_bonds: list = []
-
-    drawer.DrawMolecule(
-        molecule,
-        highlightAtoms=chiral_atoms,
-        highlightAtomColors=highlight_colors,
-        highlightBonds=highlight_bonds,
-        highlightBondColors=highlight_bond_colors
-    )
-    
-    drawer.FinishDrawing()
-    svg = drawer.GetDrawingText()
-    
-    with open("molecule_chiral.svg", "w") as f:
-        f.write(svg)
-
-
+    img = Draw.MolToImage(molecule, size=(400, 300), highlightAtoms=chiral_atoms, highlightColor=(0, 1, 0))
+    st.image(img)
 
 
 
@@ -77,11 +55,11 @@ def find_isomers(smiles: str) -> int:
     return number  
 
 
-smiles: str= "CC(C)C[C@@H]([C@H](CC(=O)O)O)N"
+# smiles: str= "CC(C)C[C@@H]([C@H](CC(=O)O)O)N"
 
-chrial_center(smiles)
-color_chiral(smiles)
-find_isomers(smiles)
+# chrial_center(smiles)
+# color_chiral(smiles)
+# find_isomers(smiles)
 
 
 

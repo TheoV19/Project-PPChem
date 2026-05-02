@@ -1,7 +1,8 @@
 import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
-from functional_groups import detect_functional_groups # type: ignore
+from functions.functional_groups import detect_functional_groups #type: ignore
+import pandas as pd #type: ignore
 
 acid_base_info = {
     "carboxylic_acid": {
@@ -87,7 +88,7 @@ def acid_base_estimate (smiles):
     if mol is None:
         raise ValueError("Invalid Molecule inserted.")
     
-    detected_groups = detect_functional_groups(smiles)
+    detected_groups = detect_functional_groups(smiles, return_df = False)
     acidic_groups=[]
     basic_groups=[]
     
@@ -112,6 +113,10 @@ def acid_base_estimate (smiles):
         
     acidic_groups.sort(key=lambda x: x["priority"])
     basic_groups.sort(key=lambda x: x["priority"])
+
+    df_acidic = pd.DataFrame(acidic_groups)
+    df_basic = pd.DataFrame(basic_groups)
     
-    print (acidic_groups, basic_groups)
-    return acidic_groups, basic_groups
+    # print(acidic_groups, basic_groups)
+
+    return df_acidic, df_basic
