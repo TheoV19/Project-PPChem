@@ -29,7 +29,7 @@ HSAB_rules = {
     "aldehyde":         {"nucleo":  0.00, "electro":  0.70},
     "ketone":           {"nucleo":  0.00, "electro":  0.60},
     "ester":            {"nucleo":  0.00, "electro":  0.55},
-    "carboxylic_acid":  {"nucleo":  -0.50, "electro":  0.50},
+    "carboxylic_acid":  {"nucleo":  -0.50, "electro": 0.50},
     "amide":            {"nucleo":  0.00, "electro":  0.15},
     "nitro":            {"nucleo":  0.00, "electro":  0.40},
     "nitrile":          {"nucleo":  0.00, "electro":  0.50},
