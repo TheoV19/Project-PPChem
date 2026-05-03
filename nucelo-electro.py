@@ -139,5 +139,5 @@ def electro_nucleo_sites_hsab(mol):
 
     return most_electrophilic, most_nucleophilic
 
-print(electro_nucleo_sites_hsab("OC=C1[C@@H](O[C@H]2CC(=O)N12)C(=O)O"))
+print(electro_nucleo_sites_hsab("C=CC1=CC2=C(C=C1)C1(O)CCCC3=C1N(CC3=O)CC2"))
 
