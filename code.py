@@ -11,6 +11,7 @@ import pandas as pd
 from functions.stereo import chiral_center, color_chiral, find_isomers
 from functions.acidity import acid_base_info, acid_base_estimate
 from functions.aromatic import detect_aromaticity
+from functions.point_groups import find_group
 
 st.title("OrganoMind")
 st.image("image.png", width =500)
@@ -44,23 +45,31 @@ if urequest:
             st.write("**CAS**", filter_cas(c.synonyms))
             st.write("**Number of rotable bond:**", c.rotatable_bond_count)
 
+    
             st.write("**Number of chiral center:**", chiral_center(c.smiles))
             st.write("**Number of existant isomers:**", find_isomers(c.smiles))
             st.write("**Representation of chiral center on the molecule's 2D drawing:**")
             color_chiral(c.smiles)
 
+
             st.write("**The functional groups present in the molecule are:**")
             st.dataframe(detect_functional_groups(c.smiles))
             #Add the 2D drawing of the molecule with functional group highlighted
 
-            nb_aromatic = detect_aromaticity(c.smiles)
-            st.write("**Number of aromatic ring:**", nb_aromatic)
+
+            # nb_aromatic = detect_aromaticity(c.smiles)
+            # st.write("**Number of aromatic ring:**", nb_aromatic)
+
 
             df_acidic, df_basic = acid_base_estimate(c.smiles)
             st.write("**Acidic groups:**")
             st.dataframe(df_acidic)
             st.write("**Basic groups:**")
             st.dataframe(df_basic)
+
+
+            st.write("**Point group of the molecule:**", find_group(c.smiles))
+
 
             st.write("**3D drawing of the molecule**")
             draw_molecule_3d(c.smiles)

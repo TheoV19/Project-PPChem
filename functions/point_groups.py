@@ -1,12 +1,12 @@
 import rdkit as rd
-import pymatgen as py
-from pymatgen.core.structure import Molecule
-from pymatgen.symmetry.analyzer import PointGroupAnalyzer
+import pymatgen as py #type: ignore
+from pymatgen.core.structure import Molecule #type: ignore
+from pymatgen.symmetry.analyzer import PointGroupAnalyzer 
 from rdkit import Chem 
 from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
 
-def point_group (smiles):
+def find_group (smiles):
     mol = Chem.MolFromSmiles(smiles)
     
     if mol is None:
