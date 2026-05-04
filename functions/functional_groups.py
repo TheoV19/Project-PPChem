@@ -70,7 +70,7 @@ functional_groups={
 
     "epoxide": "[OX2r3]1[#6r3][#6r3]1",
 
-    "acyl_chloride": "[CX3](=O)Cl",
+    "acyl chloride": "[CX3](=O)Cl",
 
     "anhydride": "[CX3](=O)[OX2][CX3](=O)",
 

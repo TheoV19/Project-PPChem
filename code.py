@@ -10,7 +10,7 @@ from functions.functional_groups import functional_groups, detect_functional_gro
 import pandas as pd
 from functions.stereo import chiral_center, color_chiral, find_isomers
 from functions.acidity import acid_base_info, acid_base_estimate
-from functions.aromatic import detect_aromaticity
+from functions.aromatic import aromatic_patterns, detect_aromatic
 from functions.point_groups import find_group
 from functions.nucelo_electro import HSAB_rules, electro_nucleo_sites_hsab
 
@@ -58,8 +58,8 @@ if urequest:
             #Add the 2D drawing of the molecule with functional group highlighted
 
 
-            # nb_aromatic = detect_aromaticity(c.smiles)
-            # st.write("**Number of aromatic ring:**", nb_aromatic)
+            st.write("**Aromaticity of the molecule:**")
+            st.dataframe(detect_aromatic(c.smiles))
 
 
             df_acidic, df_basic = acid_base_estimate(c.smiles)
