@@ -1,8 +1,10 @@
 import rdkit as rd
 from rdkit.Chem import AllChem, rdPartialCharges
 from rdkit import Chem 
-from functional_groups import detect_functional_groups #type: ignore
- 
+from functions.functional_groups import detect_functional_groups #type: ignore
+import pandas as pd #type: ignore
+import streamlit as st  #type:ignore
+
 # Table HSAB : pour chaque groupe fonctionnel
 # Valeurs calibrées pour pH = 7 (environnement neutre)
 # nucleo : plus négatif = meilleur nucléophile
@@ -126,29 +128,35 @@ def electro_nucleo_sites_hsab(mol):
         elec_score = round(charge + hsab["electro"], 4)
  
         results.append({
-            "atom_idx":         idx,
+            "atom idx":         idx,
             "symbol":           atom.GetSymbol(),
             "charge":           round(charge, 4),
-            "functional_group": group if group else "none",
-            "nuc_score":        nuc_score,
-            "elec_score":       elec_score,
+            "functional group": group if group else "none",
+            "nuc score":        nuc_score,
+            "elec score":       elec_score,
             "type":             "electrophile" if charge > 0 else "nucleophile"
         })
  
-    most_electrophilic = max(results, key=lambda x: x["elec_score"])
-    most_nucleophilic  = min(results, key=lambda x: x["nuc_score"])
+    df = pd.DataFrame(results)
+
+    if df.empty:
+        st.write("No results found.")
+        return df
+
+    most_electrophilic = df.loc[df["elec score"].idxmax()]
+    most_nucleophilic  = df.loc[df["nuc score"].idxmin()]
  
-    print(f"Most electrophilic: {most_electrophilic['symbol']}"
-          f"{most_electrophilic['atom_idx']} "
-          f"({most_electrophilic['functional_group']}, "
-          f"charge = {most_electrophilic['charge']}, "
-          f"score = {most_electrophilic['elec_score']})")
+    # print(f"Most electrophilic: {most_electrophilic['symbol']}"
+    #       f"{most_electrophilic['atom_idx']} "
+    #       f"({most_electrophilic['functional_group']}, "
+    #       f"charge = {most_electrophilic['charge']}, "
+    #       f"score = {most_electrophilic['elec_score']})")
  
-    print(f"Most nucleophilic:  {most_nucleophilic['symbol']}"
-          f"{most_nucleophilic['atom_idx']} "
-          f"({most_nucleophilic['functional_group']}, "
-          f"charge = {most_nucleophilic['charge']}, "
-          f"score = {most_nucleophilic['nuc_score']})")
+    # print(f"Most nucleophilic:  {most_nucleophilic['symbol']}"
+    #       f"{most_nucleophilic['atom_idx']} "
+    #       f"({most_nucleophilic['functional_group']}, "
+    #       f"charge = {most_nucleophilic['charge']}, "
+    #       f"score = {most_nucleophilic['nuc_score']})")
  
     return most_electrophilic, most_nucleophilic
 

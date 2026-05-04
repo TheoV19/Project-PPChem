@@ -40,28 +40,28 @@ acid_base_info = {
         "priority": 3
     },
 
-    "phosphate_ester": {
+    "phosphate ester": {
         "type": "acidic",
         "strength": "depends on structure",
         "pka_range": "depends on structure",
         "priority": 2
     },
 
-    "primary_amine": {
+    "primary amine": {
         "type": "basic",
         "strength": "weak",
         "pka_range": "conjugate acid pKa 9-11",
         "priority": 1
     },
 
-    "secondary_amine": {
+    "secondary amine": {
         "type": "basic",
         "strength": "moderate",
         "pka_range": "conjugate acid pKa 9-11",
         "priority": 1
     },
 
-    "tertiary_amine": {
+    "tertiary amine": {
         "type": "basic",
         "strength": "strong",
         "pka_range": "conjugate acid pKa 8-11",

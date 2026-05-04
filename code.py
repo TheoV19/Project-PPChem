@@ -12,6 +12,7 @@ from functions.stereo import chiral_center, color_chiral, find_isomers
 from functions.acidity import acid_base_info, acid_base_estimate
 from functions.aromatic import detect_aromaticity
 from functions.point_groups import find_group
+from functions.nucelo_electro import HSAB_rules, electro_nucleo_sites_hsab
 
 st.title("OrganoMind")
 st.image("image.png", width =500)
@@ -67,6 +68,9 @@ if urequest:
             st.write("**Basic groups:**")
             st.dataframe(df_basic)
 
+
+            st.write("**Nucleophilicity/electrophilicity of the molecule:**")
+            st.dataframe(electro_nucleo_sites_hsab(c.smiles))
 
             st.write("**Point group of the molecule:**", find_group(c.smiles))
 

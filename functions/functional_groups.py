@@ -20,11 +20,11 @@ functional_groups={
 
     "ether": "[OD2H0]([#6;!$(C=O)])[#6;!$(C=O)]",
 
-    "primary_amine": "[NX3;H2;!$([N+]);!$(NC=O)]([CX4])",
+    "primary amine": "[NX3;H2;!$([N+]);!$(NC=O)]([CX4])",
 
-    "secondary_amine": "[NX3;H1;!$([N+]);!$(NC=O)]([#6])[#6]",
+    "secondary amine": "[NX3;H1;!$([N+]);!$(NC=O)]([#6])[#6]",
 
-    "tertiary_amine": "[NX3;H0;!$([N+]);!$(NC=O)]([#6])([#6])[#6]",
+    "tertiary amine": "[NX3;H0;!$([N+]);!$(NC=O)]([#6])([#6])[#6]",
 
     "nitrile": "[CX2]#[NX1]",
 
@@ -32,11 +32,11 @@ functional_groups={
 
     "alkyne": "[CX2]#[CX2]",
 
-    "benzene_ring": "[c;!$(c[OX2H])]1[c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])]1",
+    "benzene ring": "[c;!$(c[OX2H])]1[c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])][c;!$(c[OX2H])]1",
 
     "halide": "[F,Cl,Br,I]",
 
-    "alkyl_halide": "[CX4;!$(C=O)][F,Cl,Br,I]",
+    "alkyl halide": "[CX4;!$(C=O)][F,Cl,Br,I]",
 
     "nitro": "[NX3+](=O)[O-]",
 
@@ -58,15 +58,15 @@ functional_groups={
 
     "sulfonamide": "[#6][SX4](=O)(=O)[NX3;!$([N+])]",
 
-    "sulfonyl_chloride": "[#6][SX4](=O)(=O)Cl",
+    "sulfonyl chloride": "[#6][SX4](=O)(=O)Cl",
 
-    "sulfonyl_fluoride": "[#6][SX4](=O)(=O)F",
+    "sulfonyl fluoride": "[#6][SX4](=O)(=O)F",
 
-    "sulfonyl_bromide": "[#6][SX4](=O)(=O)Br",
+    "sulfonyl bromide": "[#6][SX4](=O)(=O)Br",
 
-    "sulfonyl_iodide": "[#6][SX4](=O)(=O)I",
+    "sulfonyl iodide": "[#6][SX4](=O)(=O)I",
 
-    "phosphate_ester": "[PX4](=O)([OX2][#6])([OX2H,OX2-])[OX2H,OX2-]",
+    "phosphate ester": "[PX4](=O)([OX2][#6])([OX2H,OX2-])[OX2H,OX2-]",
 
     "epoxide": "[OX2r3]1[#6r3][#6r3]1",
 
