@@ -66,7 +66,7 @@ if urequest:
             st.write("**Acidic groups:**")
             st.dataframe(df_acidic)
             st.write("**Basic groups:**")
-            st.dataframe(df_basic)
+            st.dataframe(df_basic) 
 
 
             st.write("**Nucleophilicity/electrophilicity of the molecule:**")
