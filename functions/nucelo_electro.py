@@ -145,7 +145,15 @@ def electro_nucleo_sites_hsab(mol):
 
     most_electrophilic = df.loc[df["elec score"].idxmax()]
     most_nucleophilic  = df.loc[df["nuc score"].idxmin()]
+
+    most_electrophilic_drop = most_electrophilic.drop(
+        labels=["charge", "nuc score", "elec score"]
+    )
+
+    most_nucleophilic_drop = most_nucleophilic.drop(
+        labels=["charge", "nuc score", "elec score"]
+    )
  
  
-    return most_electrophilic, most_nucleophilic
+    return most_electrophilic_drop, most_nucleophilic_drop
 
