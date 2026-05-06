@@ -23,7 +23,18 @@ st.subheader("You can search informations on any existant molecules by entering 
 search_type = st.selectbox("Enter:", ["name", "formula", "smiles", "inchi", "inchikey"])
 urequest = st.text_input(f"Enter the {search_type}")
 
-info = st.multiselect("I want informations about:", options=["Molecular formula", "Molecular weight", "IUPAC name", "SMILES", "CAS", "Number of rotable bond", "Number of stereocenter", "3D drawing"], default=["Molecular formula"])
+info = st.multiselect("I want informations about:", 
+                      options=[
+                            "Molecular formula", 
+                            "Molecular weight", 
+                            "IUPAC name", 
+                            "SMILES", 
+                            "CAS", 
+                            "Number of rotable bond", 
+                            "Stereochemistry", "Functional group",
+                            "Aromaticity", "Acidity/Basicity", 
+                            "Nucleophilicity/Electrophilicity", 
+                            "Point groups", "3D drawing"], default=["Molecular formula"])
 
 def filter_cas(synonyms: list[str])-> list[str]:
     cas = []
@@ -40,45 +51,52 @@ if urequest:
         if results:
             c = results[0]
             st.success("Compound found!")
-            st.write("**Formula:**", c.molecular_formula)
-            st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
-            st.write("**IUPAC Name:**", c.iupac_name)
-            st.write("**Smiles**", c.smiles)
-            st.write("**CAS**", filter_cas(c.synonyms))
-            st.write("**Number of rotable bond:**", c.rotatable_bond_count)
 
-    
-            st.write("**Number of chiral center:**", chiral_center(c.smiles))
-            st.write("**Number of existant isomers:**", find_isomers(c.smiles))
-            st.write("**Representation of chiral center on the molecule's 2D drawing:**")
-            color_chiral(c.smiles)
+            if "Molecular formula" in info:
+                st.write("**Formula:**", c.molecular_formula)
 
+            if "Molecular weight" in info:
+                st.write("**Molecular Weight:**", c.molecular_weight)
 
-            st.write("**The functional groups present in the molecule are:**")
-            st.dataframe(detect_functional_groups(c.smiles))
-            draw_molecule_with_functional_groups(c.smiles)
+            if "IUPAC name" in info:
+                st.write("**IUPAC Name:**", c.iupac_name)
 
+            if "SMILES" in info:
+                st.write("**SMILES:**", c.smiles)
 
-            st.write("**Aromaticity of the molecule:**")
-            st.dataframe(detect_aromatic(c.smiles))
+            if "CAS" in info:
+                st.write("**CAS:**", filter_cas(c.synonyms))
 
+            if "Number of rotable bond" in info:
+                st.write("**Rotatable bonds:**", c.rotatable_bond_count)
 
-            df_acidic, df_basic = acid_base_estimate(c.smiles)
-            st.write("**Acidic groups:**")
-            st.dataframe(df_acidic)
-            st.write("**Basic groups:**")
-            st.dataframe(df_basic) 
+            if "Stereochemistry" in info:
+                st.write("**Number of chiral center:**", chiral_center(c.smiles))
+                st.write("**Number of existant isomers:**", find_isomers(c.smiles))
+                color_chiral(c.smiles)
 
+            if "Functional group" in info:
+                st.dataframe(detect_functional_groups(c.smiles))
+                draw_molecule_with_functional_groups(c.smiles)
 
-            st.write("**Nucleophilicity/electrophilicity of the molecule:**")
-            st.dataframe(electro_nucleo_sites_hsab(c.smiles))
+            if "Aromaticity" in info:
+                st.dataframe(detect_aromatic(c.smiles))
 
+            if "Acidity/Basicity" in info:
+                df_acidic, df_basic = acid_base_estimate(c.smiles)
+                st.write("**Acidic groups:**")
+                st.dataframe(df_acidic)
+                st.write("**Basic groups:**")
+                st.dataframe(df_basic)
 
-            st.write("**Point group of the molecule:**", find_group(c.smiles))
+            if "Nucleophilicity/Electrophilicity" in info:
+                st.dataframe(electro_nucleo_sites_hsab(c.smiles))
 
+            if "Point groups" in info:
+                st.write("**Point group:**", find_group(c.smiles))
 
-            st.write("**3D drawing of the molecule**")
-            draw_molecule_3d(c.smiles)
+            if "3D drawing" in info:
+                draw_molecule_3d(c.smiles)
         
         else:
             st.error("No compound found.")
@@ -93,18 +111,54 @@ if drawing:
         if result:
             c = result[0]
             st.success("Compound found!")
-            st.write("**Formula:**", c.molecular_formula)
-            st.write("**Molecular Weight:**", c.molecular_weight, "g$\cdot$mol$^{-1}$")
-            st.write("**IUPAC Name:**", c.iupac_name)
-            st.write("**Smiles**", c.smiles)
-            #st.write("**Common names:**")
-            #for s in c.synonyms[:5]:
-               # st.write("•", s)
-            st.write("**CAS**", filter_cas(c.synonyms))
-            st.write("**Number of rotable bond:**", c.rotatable_bond_count)
-            st.write("**Number of stereocenter**", c.defined_atom_stereo_count)
+            if "Molecular formula" in info:
+                st.write("**Formula:**", c.molecular_formula)
+
+            if "Molecular weight" in info:
+                st.write("**Molecular Weight:**", c.molecular_weight)
+
+            if "IUPAC name" in info:
+                st.write("**IUPAC Name:**", c.iupac_name)
+
+            if "SMILES" in info:
+                st.write("**SMILES:**", c.smiles)
+
+            if "CAS" in info:
+                st.write("**CAS:**", filter_cas(c.synonyms))
+
+            if "Number of rotable bond" in info:
+                st.write("**Rotatable bonds:**", c.rotatable_bond_count)
+
+            if "Stereochemistry" in info:
+                st.write("**Number of chiral center:**", chiral_center(c.smiles))
+                st.write("**Number of existant isomers:**", find_isomers(c.smiles))
+                color_chiral(c.smiles)
+
+            if "Functional group" in info:
+                st.dataframe(detect_functional_groups(c.smiles))
+                draw_molecule_with_functional_groups(c.smiles)
+
+            if "Aromaticity" in info:
+                st.dataframe(detect_aromatic(c.smiles))
+
+            if "Acidity/Basicity" in info:
+                df_acidic, df_basic = acid_base_estimate(c.smiles)
+                st.write("**Acidic groups:**")
+                st.dataframe(df_acidic)
+                st.write("**Basic groups:**")
+                st.dataframe(df_basic)
+
+            if "Nucleophilicity/Electrophilicity" in info:
+                st.dataframe(electro_nucleo_sites_hsab(c.smiles))
+
+            if "Point groups" in info:
+                st.write("**Point group:**", find_group(c.smiles))
+
+            if "3D drawing" in info:
+                draw_molecule_3d(c.smiles)
+        
         else:
-            st.error("No compound found.") 
+            st.error("No compound found.")
 
 
 
