@@ -4,7 +4,7 @@ from rdkit import Chem
 import pandas as pd #type: ignore
 
 functional_groups={
-    "carboxylic_acid": "[CX3](=O)[OX2H1]",
+    "carboxylic acid": "[CX3](=O)[OX2H1]",
 
     "ester": "[CX3](=O)[OX2H0][#6;!$(C=O)]",
 

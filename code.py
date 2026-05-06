@@ -13,6 +13,7 @@ from functions.acidity import acid_base_info, acid_base_estimate
 from functions.aromatic import aromatic_patterns, detect_aromatic
 from functions.point_groups import find_group
 from functions.nucelo_electro import HSAB_rules, electro_nucleo_sites_hsab
+from functions.highlight_functional_groups import rgb_to_svg_color, add_legend_to_svg, draw_molecule_with_functional_groups
 
 st.title("OrganoMind")
 st.image("image.png", width =500)
@@ -55,7 +56,7 @@ if urequest:
 
             st.write("**The functional groups present in the molecule are:**")
             st.dataframe(detect_functional_groups(c.smiles))
-            #Add the 2D drawing of the molecule with functional group highlighted
+            draw_molecule_with_functional_groups(c.smiles)
 
 
             st.write("**Aromaticity of the molecule:**")
@@ -71,6 +72,7 @@ if urequest:
 
             st.write("**Nucleophilicity/electrophilicity of the molecule:**")
             st.dataframe(electro_nucleo_sites_hsab(c.smiles))
+
 
             st.write("**Point group of the molecule:**", find_group(c.smiles))
 

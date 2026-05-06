@@ -17,9 +17,9 @@ HSAB_rules = {
     "isothiocyanate":   {"nucleo": -0.50, "electro":  0.00},
  
     # --- AMINES → protonées à pH 7 (pKa conjugate acid ~9-11 > 7) → mauvais nucléophiles ---
-    "primary_amine":    {"nucleo":  0.10, "electro":  0.00},  # NH3+ → mauvais nucléophile
-    "secondary_amine":  {"nucleo":  0.10, "electro":  0.00},  # NH2+ → mauvais nucléophile
-    "tertiary_amine":   {"nucleo":  0.10, "electro":  0.00},  # NH+  → mauvais nucléophile
+    "primary amine":    {"nucleo":  0.10, "electro":  0.00},  # NH3+ → mauvais nucléophile
+    "secondary amine":  {"nucleo":  0.10, "electro":  0.00},  # NH2+ → mauvais nucléophile
+    "tertiary amine":   {"nucleo":  0.10, "electro":  0.00},  # NH+  → mauvais nucléophile
     "imine":            {"nucleo": -0.10, "electro":  0.00},  # pKa ~5-7 → partiellement protoné
  
     # --- OXYGÈNES → non déprotonés à pH 7 ---
@@ -41,9 +41,9 @@ HSAB_rules = {
     "nitro":            {"nucleo":  0.00, "electro":  0.40},
     "nitrile":          {"nucleo":  0.00, "electro":  0.50},
     "isocyanate":       {"nucleo":  0.00, "electro":  0.70},
-    "alkyl_halide":     {"nucleo":  0.00, "electro":  0.50},
+    "alkyl halide":     {"nucleo":  0.00, "electro":  0.50},
     "epoxide":          {"nucleo":  0.00, "electro":  0.65},
-    "sulfonyl_chloride":{"nucleo":  0.00, "electro":  0.85},
+    "sulfonyl chloride":{"nucleo":  0.00, "electro":  0.85},
     "sulfoxide":        {"nucleo":  0.00, "electro":  0.40},
     "sulfone":          {"nucleo":  0.00, "electro":  0.45},
     "lactone":          {"nucleo":  0.00, "electro":  0.60},
@@ -88,7 +88,7 @@ def electro_nucleo_sites_hsab(mol):
     rdPartialCharges.ComputeGasteigerCharges(mol)
  
     # Détecter les groupes fonctionnels
-    groups = detect_functional_groups(smiles)
+    groups = detect_functional_groups(smiles, return_df=False)
  
     # Construire dict {atom_idx: group_name} en gardant le groupe HSAB le plus fort
     atom_to_group = {}
@@ -146,17 +146,6 @@ def electro_nucleo_sites_hsab(mol):
     most_electrophilic = df.loc[df["elec score"].idxmax()]
     most_nucleophilic  = df.loc[df["nuc score"].idxmin()]
  
-    # print(f"Most electrophilic: {most_electrophilic['symbol']}"
-    #       f"{most_electrophilic['atom_idx']} "
-    #       f"({most_electrophilic['functional_group']}, "
-    #       f"charge = {most_electrophilic['charge']}, "
-    #       f"score = {most_electrophilic['elec_score']})")
- 
-    # print(f"Most nucleophilic:  {most_nucleophilic['symbol']}"
-    #       f"{most_nucleophilic['atom_idx']} "
-    #       f"({most_nucleophilic['functional_group']}, "
-    #       f"charge = {most_nucleophilic['charge']}, "
-    #       f"score = {most_nucleophilic['nuc_score']})")
  
     return most_electrophilic, most_nucleophilic
 

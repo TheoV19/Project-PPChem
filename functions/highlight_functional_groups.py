@@ -1,7 +1,7 @@
 import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
-from functional_groups import functional_groups, detect_functional_groups # type: ignore
+from functions.functional_groups import functional_groups, detect_functional_groups # type: ignore
 from rdkit.Chem.Draw import rdMolDraw2D
 import streamlit as st
 import streamlit.components.v1 as components
@@ -98,7 +98,7 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
     if mol is None:
         raise ValueError("Invalid Molecule inserted.")
 
-    detected_groups = detect_functional_groups(smiles)
+    detected_groups = detect_functional_groups(smiles, return_df=False)
 
     colors = [
 
@@ -169,3 +169,4 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
     components.html(svg, height=950, scrolling=True)
 
     return svg
+
