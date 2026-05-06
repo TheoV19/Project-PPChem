@@ -3,6 +3,8 @@ import rdkit as rd
 from rdkit import Chem 
 from functional_groups import functional_groups, detect_functional_groups # type: ignore
 from rdkit.Chem.Draw import rdMolDraw2D
+import streamlit as st
+import streamlit.components.v1 as components
 import re
 
 
@@ -153,13 +155,17 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
         highlightAtomColors=atom_colors, highlightBondColors=bond_colors)
 
     drawer.FinishDrawing()
-
     svg = drawer.GetDrawingText()
+
+    if svg.startswith("<?xml"):
+        svg = svg[svg.find("<svg"):]
 
     svg = add_legend_to_svg(svg, legend_items, width=700, x=700, y=25)
 
-    with open(filename, "w", encoding="utf-8") as file:
+    if filename is not None:
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(svg)
 
-        file.write(svg)
+    components.html(svg, height=950, scrolling=True)
 
     return svg
