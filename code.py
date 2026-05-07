@@ -522,128 +522,37 @@ st.set_page_config(
 # =========================
 st.title("🧪 OrganoMind")
 st.caption("Organic Chemistry Assistant · PubChem + RDKit")
+st.caption("EPFL · 2nd Year · Practical Programming in Chemistry · 2026")
+
+st.markdown("---")
 
 # =========================
 # INTRODUCTION
 # =========================
-import streamlit.components.v1 as components
+st.markdown("""
+**OrganoMind** is an organic chemistry assistant that enables **3D visualization of molecules**
+with built-in features providing chemical and stereochemical properties — helping you better
+understand reactivity and chemical processes. Enter a molecule by name, formula, SMILES or
+draw it directly, and OrganoMind gives you everything you need.
+""")
 
-components.html("""
-<style>
-    body { margin: 0; padding: 0; font-family: sans-serif; }
-    .intro-card {
-        background: linear-gradient(135deg, #1a1f2e, #252b40);
-        border: 1px solid #2d3561;
-        border-radius: 12px;
-        padding: 1.6rem 2rem;
-        margin: 0.5rem 0;
-    }
-    .intro-desc {
-        color: #94a3b8;
-        font-size: 0.92rem;
-        line-height: 1.8;
-        margin-bottom: 1.2rem;
-    }
-    .intro-desc b { color: #7dd3fc; }
-    .badge {
-        display: inline-block;
-        background: #2d3561;
-        color: #7dd3fc;
-        border: 1px solid #4a5fa0;
-        border-radius: 20px;
-        padding: 0.2rem 0.75rem;
-        font-size: 0.76rem;
-        font-weight: 600;
-        margin: 0.2rem;
-    }
-    .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-        margin: 1rem 0;
-    }
-    .feature-pill {
-        background: #1e2333;
-        border: 1px solid #2d3561;
-        border-radius: 8px;
-        padding: 0.45rem 0.8rem;
-        font-size: 0.8rem;
-        color: #94a3b8;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .feature-pill span { color: #e2e8f0; font-weight: 500; }
-    .divider {
-        height: 1px;
-        background: linear-gradient(90deg, #2d3561, transparent);
-        margin: 1rem 0;
-    }
-    .team-row {
-        display: flex;
-        gap: 0.7rem;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-    .team-chip {
-        background: #1e2333;
-        border: 1px solid #2d3561;
-        border-radius: 20px;
-        padding: 0.28rem 0.85rem;
-        font-size: 0.8rem;
-        color: #e2e8f0;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-    }
-    .dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #7dd3fc, #a78bfa);
-        display: inline-block;
-        flex-shrink: 0;
-    }
-</style>
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.markdown("🧬 3D Visualization")
+    st.markdown("🔄 Stereochemistry")
+    st.markdown("🔷 Point Groups")
+with col2:
+    st.markdown("🔬 Functional Groups")
+    st.markdown("⚗️ Acidity / Basicity")
+    st.markdown("🏷️ IUPAC Naming")
+with col3:
+    st.markdown("⭕ Aromaticity")
+    st.markdown("⚡ Nucleophilicity")
+    st.markdown("🔑 CAS / SMILES")
 
-<div class="intro-card">
-    <div style="margin-bottom:0.9rem;">
-        <span class="badge">EPFL 2026</span>
-        <span class="badge">2nd Year</span>
-        <span class="badge">Practical Programming in Chemistry</span>
-    </div>
-
-    <p class="intro-desc">
-        <b>OrganoMind</b> is an organic chemistry assistant that enables
-        <b>3D visualization of molecules</b> with built-in features providing
-        chemical and stereochemical properties &mdash; helping you better understand
-        reactivity and chemical processes. Enter a molecule by name, formula,
-        SMILES or draw it directly, and OrganoMind gives you everything you need.
-    </p>
-
-    <div class="feature-grid">
-        <div class="feature-pill">🧬 <span>3D Visualization</span></div>
-        <div class="feature-pill">🔬 <span>Functional Groups</span></div>
-        <div class="feature-pill">⭕ <span>Aromaticity</span></div>
-        <div class="feature-pill">🔄 <span>Stereochemistry</span></div>
-        <div class="feature-pill">⚗️ <span>Acidity / Basicity</span></div>
-        <div class="feature-pill">⚡ <span>Nucleophilicity</span></div>
-        <div class="feature-pill">🔷 <span>Point Groups</span></div>
-        <div class="feature-pill">🏷️ <span>IUPAC Naming</span></div>
-        <div class="feature-pill">🔑 <span>CAS / SMILES</span></div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="team-row">
-        <span style="color:#94a3b8; font-size:0.82rem;">👥 Team:</span>
-        <div class="team-chip"><div class="dot"></div>Theo Vienne</div>
-        <div class="team-chip"><div class="dot"></div>Noam Balter-Dejeux</div>
-        <div class="team-chip"><div class="dot"></div>Tolga Seckin</div>
-        <div class="team-chip"><div class="dot"></div>Theo Morales Crassier</div>
-    </div>
-</div>
-""", height=380)
+st.markdown("---")
+st.markdown("👥 **Team:** Theo Vienne · Noam Balter-Dejeux · Tolga Seckin · Theo Morales Crassier")
+st.markdown("---")
 
 # =========================
 # SIDEBAR OPTIONS
