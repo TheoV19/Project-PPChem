@@ -35,7 +35,61 @@ Already convinced ? Let me show you how to install it and enjoy all the features
 
 ### ⚙️Installation⚙️
 
-
+Clone the repository and install the dependencies:
+ 
+```bash
+git clone https://github.com/your-repo/OrganoMind.git
+cd OrganoMind
+pip install -r requirements.txt
+```
+ 
+Then launch the app:
+ 
+```bash
+streamlit run app.py
+```
+ 
+---
+ 
+### 🧠How to use🧠
+ 
+#### ✍️Write your molecule anyway you want✍️
+OrganoMind supports multiple input formats. In the **Search** tab, select your search type and enter your query:
+ 
+| Input type | Example |
+|------------|---------|
+| Name | `aspirin` |
+| Formula | `C9H8O4` |
+| SMILES | `CC(=O)Oc1ccccc1C(=O)O` |
+| InChI | `InChI=1S/C9H8O4/...` |
+| InChIKey | `BSYNRYMUTXBXSQ-UHFFFAOYSA-N` |
+ 
+> **Tip:** SMILES input gives the most accurate structure results.
+ 
+---
+ 
+#### 🎨Draw a molecule🎨
+ 
+Switch to the **Draw** tab to use the built-in Ketcher molecular editor. Draw your molecule directly on the canvas and OrganoMind will automatically identify and analyze it.
+ 
+---
+ 
+### 4. Select the information to display
+ 
+Use the **sidebar** on the left to select which properties you want to compute:
+ 
+- **Molecular formula / weight / IUPAC name / SMILES / CAS** — General information
+- **Rotatable bonds** — Conformational flexibility
+- **Stereochemistry** — Chiral centers, number of stable isomers, 2D view
+- **Functional groups** — Detection and 2D visualization
+- **Aromaticity** — Aromatic ring detection and nomenclature
+- **Acidity / Basicity** — Acidic and basic site detection with pKa estimation
+- **Nucleophilicity / Electrophilicity** — Reactive site detection with HSAB-based level attribution
+- **Point groups** — Symmetry group determination
+- **3D drawing** — Interactive 3D visualization
+ 
+---
+ 
 
 
 
