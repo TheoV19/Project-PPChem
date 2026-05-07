@@ -524,6 +524,128 @@ st.title("🧪 OrganoMind")
 st.caption("Organic Chemistry Assistant · PubChem + RDKit")
 
 # =========================
+# INTRODUCTION
+# =========================
+import streamlit.components.v1 as components
+
+components.html("""
+<style>
+    body { margin: 0; padding: 0; font-family: sans-serif; }
+    .intro-card {
+        background: linear-gradient(135deg, #1a1f2e, #252b40);
+        border: 1px solid #2d3561;
+        border-radius: 12px;
+        padding: 1.6rem 2rem;
+        margin: 0.5rem 0;
+    }
+    .intro-desc {
+        color: #94a3b8;
+        font-size: 0.92rem;
+        line-height: 1.8;
+        margin-bottom: 1.2rem;
+    }
+    .intro-desc b { color: #7dd3fc; }
+    .badge {
+        display: inline-block;
+        background: #2d3561;
+        color: #7dd3fc;
+        border: 1px solid #4a5fa0;
+        border-radius: 20px;
+        padding: 0.2rem 0.75rem;
+        font-size: 0.76rem;
+        font-weight: 600;
+        margin: 0.2rem;
+    }
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+    .feature-pill {
+        background: #1e2333;
+        border: 1px solid #2d3561;
+        border-radius: 8px;
+        padding: 0.45rem 0.8rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .feature-pill span { color: #e2e8f0; font-weight: 500; }
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, #2d3561, transparent);
+        margin: 1rem 0;
+    }
+    .team-row {
+        display: flex;
+        gap: 0.7rem;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .team-chip {
+        background: #1e2333;
+        border: 1px solid #2d3561;
+        border-radius: 20px;
+        padding: 0.28rem 0.85rem;
+        font-size: 0.8rem;
+        color: #e2e8f0;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7dd3fc, #a78bfa);
+        display: inline-block;
+        flex-shrink: 0;
+    }
+</style>
+
+<div class="intro-card">
+    <div style="margin-bottom:0.9rem;">
+        <span class="badge">EPFL 2026</span>
+        <span class="badge">2nd Year</span>
+        <span class="badge">Practical Programming in Chemistry</span>
+    </div>
+
+    <p class="intro-desc">
+        <b>OrganoMind</b> is an organic chemistry assistant that enables
+        <b>3D visualization of molecules</b> with built-in features providing
+        chemical and stereochemical properties &mdash; helping you better understand
+        reactivity and chemical processes. Enter a molecule by name, formula,
+        SMILES or draw it directly, and OrganoMind gives you everything you need.
+    </p>
+
+    <div class="feature-grid">
+        <div class="feature-pill">🧬 <span>3D Visualization</span></div>
+        <div class="feature-pill">🔬 <span>Functional Groups</span></div>
+        <div class="feature-pill">⭕ <span>Aromaticity</span></div>
+        <div class="feature-pill">🔄 <span>Stereochemistry</span></div>
+        <div class="feature-pill">⚗️ <span>Acidity / Basicity</span></div>
+        <div class="feature-pill">⚡ <span>Nucleophilicity</span></div>
+        <div class="feature-pill">🔷 <span>Point Groups</span></div>
+        <div class="feature-pill">🏷️ <span>IUPAC Naming</span></div>
+        <div class="feature-pill">🔑 <span>CAS / SMILES</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="team-row">
+        <span style="color:#94a3b8; font-size:0.82rem;">👥 Team:</span>
+        <div class="team-chip"><div class="dot"></div>Theo Vienne</div>
+        <div class="team-chip"><div class="dot"></div>Noam Balter-Dejeux</div>
+        <div class="team-chip"><div class="dot"></div>Tolga Seckin</div>
+        <div class="team-chip"><div class="dot"></div>Theo Morales Crassier</div>
+    </div>
+</div>
+""", height=380)
+
+# =========================
 # SIDEBAR OPTIONS
 # =========================
 st.sidebar.header("⚙️ Analysis Options")
@@ -561,10 +683,8 @@ def filter_cas(synonyms: list[str]):
             return match.group(1)
     return None
 
-
 def show(label, value):
     st.write(f"**{label}** {value}")
-
 
 # =========================
 # RESULT DISPLAY
@@ -575,82 +695,57 @@ def display_results(c):
 
     if "Molecular formula" in info:
         show("Formula:", c.molecular_formula)
-
     if "Molecular weight" in info:
         show("Weight:", f"{c.molecular_weight} g/mol")
-
     if "IUPAC name" in info:
         show("IUPAC:", c.iupac_name)
-
     if "SMILES" in info:
         st.code(c.smiles)
-
     if "CAS" in info:
         show("CAS:", filter_cas(c.synonyms) or "N/A")
-
     if "Rotatable bonds" in info:
         show("Rotatable bonds:", c.rotatable_bond_count)
 
-
-    # -------------------------
     if "Stereochemistry" in info:
         st.subheader("🔄 Stereochemistry")
-
         col1, col2 = st.columns(2)
         with col1:
             st.write("Chiral centers:", chiral_center(c.smiles))
         with col2:
             st.write("Possible isomers:", find_isomers(c.smiles))
-
         color_chiral(c.smiles)
 
-
-    # -------------------------
     if "Functional groups" in info:
         st.subheader("🔬 Functional Groups")
         st.dataframe(detect_functional_groups(c.smiles))
         draw_molecule_with_functional_groups(c.smiles)
 
-
-    # -------------------------
     if "Aromaticity" in info:
         st.subheader("⭕ Aromaticity")
         st.dataframe(detect_aromatic(c.smiles))
 
-
-    # -------------------------
     if "Acidity/Basicity" in info:
         st.subheader("⚗️ Acidity / Basicity")
-
         acidic, basic = acid_base_estimate(c.smiles)
-
         col1, col2 = st.columns(2)
         with col1:
             st.write("🔴 Acidic sites")
             st.dataframe(acidic)
-
         with col2:
             st.write("🔵 Basic sites")
             st.dataframe(basic)
 
-
-    # -------------------------
     if "Nucleophilicity/Electrophilicity" in info:
         st.subheader("⚡ Reactivity")
         st.dataframe(electro_nucleo_sites_hsab(c.smiles))
 
-
-    # -------------------------
     if "Point groups" in info:
         st.subheader("🔷 Symmetry")
         st.write("Point group:", find_group(c.smiles))
 
-
-    # -------------------------
     if "3D drawing" in info:
         st.subheader("🧬 3D Structure")
         draw_molecule_3d(c.smiles)
-
 
 # =========================
 # TABS
@@ -662,22 +757,18 @@ tab1, tab2 = st.tabs(["🔍 Search", "✏️ Draw"])
 # =========================
 with tab1:
     st.subheader("Molecule Search")
-
     col1, col2 = st.columns([1, 2])
-
     with col1:
         search_type = st.selectbox(
             "Search by:",
             ["name", "formula", "smiles", "inchi", "inchikey"]
         )
-
     with col2:
         query = st.text_input("Enter molecule")
 
     if query:
         with st.spinner("Searching PubChem..."):
             results = pcp.get_compounds(query, search_type)
-
             if results:
                 compound = results[0]
                 st.success(f"Found: {compound.iupac_name or query}")
@@ -685,21 +776,17 @@ with tab1:
             else:
                 st.error("No compound found")
 
-
 # =========================
 # TAB 2 - DRAW
 # =========================
 with tab2:
     st.subheader("Draw Molecule")
-
     st.info("Draw a molecule to analyze its structure")
-
     drawing = st_ketcher()
 
     if drawing:
         with st.spinner("Processing molecule..."):
             result = pcp.get_compounds(drawing, "smiles")
-
             if result:
                 compound = result[0]
                 st.success(f"Identified: {compound.iupac_name or 'Unknown'}")

@@ -1,7 +1,7 @@
 import rdkit as rd
 import pymatgen as py #type: ignore
 from pymatgen.core.structure import Molecule #type: ignore
-from pymatgen.symmetry.analyzer import PointGroupAnalyzer 
+from pymatgen.symmetry.analyzer import PointGroupAnalyzer #type: ignore
 from rdkit import Chem 
 from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
