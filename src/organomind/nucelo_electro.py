@@ -1,8 +1,8 @@
 import rdkit as rd
 from rdkit.Chem import AllChem, rdPartialCharges
 from rdkit import Chem 
-from functions.Data.nucleo_data import HSAB_rules
-from functions.functional_groups import detect_functional_groups #type: ignore
+from organomind.data.nucleo_data import HSAB_rules
+from organomind.functional_groups import detect_functional_groups #type: ignore
 import pandas as pd #type: ignore
 import streamlit as st  #type:ignore
 

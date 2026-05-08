@@ -5,15 +5,15 @@ from rdkit.Chem import Draw
 import streamlit as st
 from streamlit_ketcher import st_ketcher
 import re
-from functions.draw3D import draw_molecule_3d
-from functions.functional_groups import detect_functional_groups
+from organomind.draw3D import draw_molecule_3d
+from organomind.functional_groups import detect_functional_groups
 import pandas as pd
-from functions.stereo import chiral_center, color_chiral, find_isomers
-from functions.acidity import acid_base_estimate
-from functions.aromatic import detect_aromatic
-from functions.point_groups import find_group
-from functions.nucelo_electro import electro_nucleo_sites_hsab
-from functions.highlight_functional_groups import draw_molecule_with_functional_groups
+from organomind.stereo import chiral_center, color_chiral, find_isomers
+from organomind.acidity import acid_base_estimate
+from organomind.aromatic import detect_aromatic
+from organomind.point_groups import find_group
+from organomind.nucelo_electro import electro_nucleo_sites_hsab
+from organomind.highlight_functional_groups import draw_molecule_with_functional_groups
 
 
 # st.title("OrganoMind")

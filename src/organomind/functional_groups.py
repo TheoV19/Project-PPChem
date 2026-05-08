@@ -2,7 +2,7 @@ import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
 import pandas as pd #type: ignore
-from functions.Data.functional_groups_data import functional_groups
+from organomind.data.functional_groups_data import functional_groups
 
 def detect_functional_groups(smiles, return_df = True):
     """
