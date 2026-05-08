@@ -7,7 +7,7 @@ from rdkit.Chem.EnumerateStereoisomers import EnumerateStereoisomers, StereoEnum
 import streamlit as st
 
 
-def chiral_center(smiles: str)-> int:
+def chiral_center(smiles: str):
     molecule = Chem.MolFromSmiles(smiles)
     if molecule is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
