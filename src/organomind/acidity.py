@@ -5,7 +5,6 @@ from organomind.functional_groups import detect_functional_groups #type: ignore
 from organomind.data.acid_base_data import acid_base_info
 import pandas as pd #type: ignore
 
-
 def acid_base_estimate (smiles):
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
