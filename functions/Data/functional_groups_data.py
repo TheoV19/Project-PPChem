@@ -61,7 +61,15 @@ functional_groups={
 
     "sulfonyl iodide": "[#6][SX4](=O)(=O)I",
 
-    "phosphate ester": "[PX4](=O)([OX2][#6])([OX2H,OX2-])[OX2H,OX2-]",
+    "phosphate ester": "[PX4](=O)([OX2][#6])([OX2,O])([OX2,O])",
+
+    "phosphine": "[PX3;!$(P=O);!$(P=S);!$(P=N)]([#6,#1,#9,#17,#35,#53])",
+
+    "phosphine oxide": "[PX4](=O)([#6,#1])([#6,#1])[#6,#1]",
+
+    "phosphonate": "[PX4](=O)([#6])([OX2,O])([OX2,O])",
+
+    "phosphonium": "[P+X4]",
 
     "epoxide": "[OX2r3]1[#6r3][#6r3]1",
 
