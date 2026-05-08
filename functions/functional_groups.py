@@ -2,7 +2,6 @@ import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
 import pandas as pd #type: ignore
-<<<<<<< HEAD
 
 functional_groups={
     "carboxylic acid": "[CX3](=O)[OX2H1]",
@@ -87,9 +86,8 @@ functional_groups={
 
     "lactam": "[CX3r](=O)[NX3r]",
 }
-=======
 from functions.Data.functional_groups_data import functional_groups
->>>>>>> e5a23bc (data base seperated)
+
 
 def detect_functional_groups(smiles, return_df = True):
     """
