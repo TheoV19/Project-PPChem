@@ -38,15 +38,12 @@ def color_chiral(smiles: str):
     molecule = Chem.MolFromSmiles(smiles)
     if molecule is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
-
     stereocenters = Chem.FindMolChiralCenters(molecule, includeUnassigned=True)
     chiral_atoms = [idx for idx, _ in stereocenters]
-
     if not chiral_atoms:
-        st.write("No chiral center found")
-    else:
-        img = Draw.MolToImage(molecule, size=(400, 300), highlightAtoms=chiral_atoms, highlightColor=(0, 1, 0))
-        st.image(img)
+        return None
+    img = Draw.MolToImage(molecule, size=(400, 300), highlightAtoms=chiral_atoms, highlightColor=(0, 1, 0))
+    return img
 
 
 
