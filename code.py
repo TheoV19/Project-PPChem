@@ -625,7 +625,7 @@ def display_results(c):
             st.write("Chiral centers:", chiral_center(c.smiles))
         with col2:
             st.write("Possible isomers:", find_isomers(c.smiles))
-        color_chiral(c.smiles)
+        st.image(color_chiral(c.smiles))
 
     if "Functional groups" in info:
         st.subheader("🔬 Functional Groups")
