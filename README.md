@@ -33,21 +33,40 @@ Organomind will give you the number of chiral centers and 2D view of them with t
 
 Already convinced ? Let me show you how to install it and enjoy all the features of this framework ! 🎉
 
-### ⚙️Installation⚙️
+## ⚙️ Installation ⚙️
 
-Clone the repository and install the dependencies:
- 
+### Prerequisites
+- Python 3.10 or higher
+- pip
+
+### Steps
+
+**1. Clone the repository**
 ```bash
-git clone https://github.com/your-repo/OrganoMind.git
+git clone https://github.com/your-username/OrganoMind.git
 cd OrganoMind
+```
+
+**2. Create a virtual environment (recommended)**
+```bash
+python -m venv venv
+source venv/bin/activate        # Mac/Linux
+venv\Scripts\activate           # Windows
+```
+
+**3. Install dependencies**
+```bash
 pip install -r requirements.txt
 ```
- 
-Then launch the app:
- 
+
+**4. Run the app**
 ```bash
-streamlit run app.py
+streamlit run code.py
 ```
+
+The app will open automatically in your browser at `http://localhost:8501`.
+
+
  
 ---
  
