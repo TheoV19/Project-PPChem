@@ -1,9 +1,6 @@
 import rdkit as rd
 from rdkit import Chem 
-from rdkit.Chem import Draw
-from rdkit.Chem import AllChem
-from functions.Data.aromatic_data import aromatic_patterns
-from functions.functional_groups import detect_functional_groups # type: ignore
+from functions.Data.aromatic_data import aromatic_patterns 
 import pandas as pd #type: ignore
 
 def detect_aromatic(smiles: str) -> pd.DataFrame:
