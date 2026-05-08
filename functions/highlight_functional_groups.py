@@ -1,7 +1,8 @@
 import pubchempy as pcp # type: ignore
 import rdkit as rd
 from rdkit import Chem 
-from functions.functional_groups import functional_groups, detect_functional_groups # type: ignore
+from functions.functional_groups import detect_functional_groups # type: ignore
+from functions.Data.functional_groups_data import functional_groups
 from rdkit.Chem.Draw import rdMolDraw2D
 import streamlit as st
 import streamlit.components.v1 as components

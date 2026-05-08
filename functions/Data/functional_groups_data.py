@@ -1,9 +1,3 @@
-import pubchempy as pcp # type: ignore
-import rdkit as rd
-from rdkit import Chem 
-import pandas as pd #type: ignore
-<<<<<<< HEAD
-
 functional_groups={
     "carboxylic acid": "[CX3](=O)[OX2H1]",
 
@@ -67,15 +61,7 @@ functional_groups={
 
     "sulfonyl iodide": "[#6][SX4](=O)(=O)I",
 
-    "phosphate ester": "[PX4](=O)([OX2][#6])([OX2,O])([OX2,O])",
-
-    "phosphine": "[PX3;!$(P=O);!$(P=S);!$(P=N)]([#6,#1,#9,#17,#35,#53])",
-
-    "phosphine oxide": "[PX4](=O)([#6,#1])([#6,#1])[#6,#1]",
-
-    "phosphonate": "[PX4](=O)([#6])([OX2,O])([OX2,O])",
-
-    "phosphonium": "[P+X4]",
+    "phosphate ester": "[PX4](=O)([OX2][#6])([OX2H,OX2-])[OX2H,OX2-]",
 
     "epoxide": "[OX2r3]1[#6r3][#6r3]1",
 
@@ -87,37 +73,3 @@ functional_groups={
 
     "lactam": "[CX3r](=O)[NX3r]",
 }
-=======
-from functions.Data.functional_groups_data import functional_groups
->>>>>>> e5a23bc (data base seperated)
-
-def detect_functional_groups(smiles, return_df = True):
-    """
-    Finds functional groups if present.
-    Args:
-        smiles (str): SMILES string of the molecule.
-    Returns:
-        dict: A dictionay of detected functional groups and the amount of times.
-    """
-    mol = Chem.MolFromSmiles(smiles)
-   
-    groups_present={}
-    
-    if mol is None:
-        raise ValueError("Invalid Molecule inserted.")
-
-    for group, smart in functional_groups.items():
-        pattern=Chem.MolFromSmarts(smart)
-        matches=mol.GetSubstructMatches(pattern)
-        
-        if len (matches)>0:
-            groups_present[group]={
-                "amount": len(matches),
-                "position": matches
-            }
-    df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in groups_present.items()])
-
-    if return_df:
-        return df
-
-    return groups_present

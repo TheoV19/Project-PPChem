@@ -6,14 +6,15 @@ import streamlit as st
 from streamlit_ketcher import st_ketcher
 import re
 from functions.draw3D import draw_molecule_3d
-from functions.functional_groups import functional_groups, detect_functional_groups
+from functions.functional_groups import detect_functional_groups
 import pandas as pd
 from functions.stereo import chiral_center, color_chiral, find_isomers
-from functions.acidity import acid_base_info, acid_base_estimate
-from functions.aromatic import aromatic_patterns, detect_aromatic
+from functions.acidity import acid_base_estimate
+from functions.aromatic import detect_aromatic
 from functions.point_groups import find_group
-from functions.nucelo_electro import HSAB_rules, electro_nucleo_sites_hsab
-from functions.highlight_functional_groups import rgb_to_svg_color, add_legend_to_svg, draw_molecule_with_functional_groups
+from functions.nucelo_electro import electro_nucleo_sites_hsab
+from functions.highlight_functional_groups import draw_molecule_with_functional_groups
+
 
 # st.title("OrganoMind")
 # st.image("image.png", width =500)
