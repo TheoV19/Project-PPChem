@@ -586,6 +586,8 @@ st.sidebar.info("💡 Tip: SMILES gives most accurate structure results")
 # HELPERS
 # =========================
 def filter_cas(synonyms: list[str]):
+    if synonyms is None:
+        return None
     for s in synonyms:
         match = re.match(r"(\d{2,7}-\d\d-\d)", s)
         if match:
