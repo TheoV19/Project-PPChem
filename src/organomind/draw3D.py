@@ -1,9 +1,6 @@
 import rdkit as rd
 from rdkit import Chem 
-from rdkit.Chem import Draw
 from rdkit.Chem import AllChem
-from rdkit.Chem.Draw import rdMolDraw2D
-import streamlit as st
 import py3Dmol # type: ignore
 import streamlit.components.v1 as components
 
@@ -27,4 +24,3 @@ def draw_molecule_3d(smiles, style='stick', color='spectrum',
     
     components.html(view._make_html(), height=height)
 
-# draw_molecule_3d('CCC(=O)N(C1CCN(CC1)CCC2=CC=CC=C2)C3=CC=CC=C3')

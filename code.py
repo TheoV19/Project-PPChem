@@ -607,16 +607,23 @@ def display_results(c):
 
     if "Molecular formula" in info:
         show("Formula:", c.molecular_formula)
+        
     if "Molecular weight" in info:
         show("Weight:", f"{c.molecular_weight} g/mol")
+
     if "IUPAC name" in info:
         show("IUPAC:", c.iupac_name)
+
     if "SMILES" in info:
         st.code(c.smiles)
+
     if "CAS" in info:
         show("CAS:", filter_cas(c.synonyms) or "N/A")
+
     if "Rotatable bonds" in info:
         show("Rotatable bonds:", c.rotatable_bond_count)
+
+
 
     if "Stereochemistry" in info:
         st.subheader("🔄 Stereochemistry")
@@ -625,7 +632,14 @@ def display_results(c):
             st.write("Chiral centers:", chiral_center(c.smiles))
         with col2:
             st.write("Possible isomers:", find_isomers(c.smiles))
-        st.image(color_chiral(c.smiles))
+        
+        img = color_chiral(c.smiles)
+        if img is None:
+            st.info("No chiral centers found.")
+        else:
+            st.image(img, caption="Highlighted chiral centers")
+
+
 
     if "Functional groups" in info:
         st.subheader("🔬 Functional Groups")
