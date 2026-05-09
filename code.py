@@ -4,7 +4,6 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 import streamlit as st
 from streamlit_ketcher import st_ketcher
-import re
 from organomind.draw3D import draw_molecule_3d
 from organomind.functional_groups import detect_functional_groups
 import pandas as pd
