@@ -6,7 +6,7 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import rdMolDraw2D
 
-def find_group (smiles):
+def find_group(smiles):
     mol = Chem.MolFromSmiles(smiles)
     
     if mol is None:
