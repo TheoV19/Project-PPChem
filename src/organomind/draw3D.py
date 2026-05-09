@@ -5,7 +5,7 @@ import py3Dmol # type: ignore
 import streamlit.components.v1 as components
 
 def draw_molecule_3d(smiles, style='stick', color='spectrum',
-                     width=600, height=400, background='white'):
+                     width=600, height=400, background='white', jupyter=False):
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
@@ -22,5 +22,11 @@ def draw_molecule_3d(smiles, style='stick', color='spectrum',
     view.setBackgroundColor(background)
     view.zoomTo()
     
-    components.html(view._make_html(), height=height)
+    if jupyter:
+        return view.show()
+    else:
+        components.html(view._make_html(), height=height)
+   
+    
+
 
