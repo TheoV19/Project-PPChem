@@ -3,7 +3,6 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 import py3Dmol # type: ignore
 import streamlit.components.v1 as components
-from IPython.display import HTML
 
 def draw_molecule_3d(smiles, style='stick', color='spectrum',
                      width=600, height=400, background='white', jupyter=False):
@@ -23,10 +22,7 @@ def draw_molecule_3d(smiles, style='stick', color='spectrum',
     view.setBackgroundColor(background)
     view.zoomTo()
     
-    if jupyter:
-        return HTML(view._make_html())
-    else:
-        components.html(view._make_html(), height=height)
+    components.html(view._make_html(), height=height)
    
     
 

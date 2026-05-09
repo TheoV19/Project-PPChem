@@ -14,7 +14,7 @@ from organomind.aromatic import detect_aromatic
 from organomind.point_groups import find_group
 from organomind.nucelo_electro import electro_nucleo_sites_hsab
 from organomind.highlight_functional_groups import draw_molecule_with_functional_groups
-
+from organomind.cas import filter_cas
 
 # st.title("OrganoMind")
 # st.image("image.png", width =500)
