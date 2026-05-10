@@ -4,7 +4,6 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 import streamlit as st
 from streamlit_ketcher import st_ketcher
-import re
 from organomind.draw3D import draw_molecule_3d
 from organomind.functional_groups import detect_functional_groups
 import pandas as pd
@@ -14,7 +13,7 @@ from organomind.aromatic import detect_aromatic
 from organomind.point_groups import find_group
 from organomind.nucelo_electro import electro_nucleo_sites_hsab
 from organomind.highlight_functional_groups import draw_molecule_with_functional_groups
-
+from organomind.cas import filter_cas
 
 # st.title("OrganoMind")
 # st.image("image.png", width =500)
@@ -586,14 +585,6 @@ st.sidebar.info("💡 Tip: SMILES gives most accurate structure results")
 # =========================
 # HELPERS
 # =========================
-def filter_cas(synonyms: list[str]):
-    if synonyms is None:
-        return None
-    for s in synonyms:
-        match = re.match(r"(\d{2,7}-\d\d-\d)", s)
-        if match:
-            return match.group(1)
-    return None
 
 def show(label, value):
     st.write(f"**{label}** {value}")
@@ -607,16 +598,23 @@ def display_results(c):
 
     if "Molecular formula" in info:
         show("Formula:", c.molecular_formula)
+
     if "Molecular weight" in info:
         show("Weight:", f"{c.molecular_weight} g/mol")
+
     if "IUPAC name" in info:
         show("IUPAC:", c.iupac_name)
+
     if "SMILES" in info:
         st.code(c.smiles)
+
     if "CAS" in info:
         show("CAS:", filter_cas(c.synonyms) or "N/A")
+
     if "Rotatable bonds" in info:
         show("Rotatable bonds:", c.rotatable_bond_count)
+
+
 
     if "Stereochemistry" in info:
         st.subheader("🔄 Stereochemistry")
@@ -625,7 +623,14 @@ def display_results(c):
             st.write("Chiral centers:", chiral_center(c.smiles))
         with col2:
             st.write("Possible isomers:", find_isomers(c.smiles))
-        st.image(color_chiral(c.smiles))
+        
+        img = color_chiral(c.smiles)
+        if img is None:
+            st.info("No chiral centers found.")
+        else:
+            st.image(img, caption="Highlighted chiral centers")
+
+
 
     if "Functional groups" in info:
         st.subheader("🔬 Functional Groups")
