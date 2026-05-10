@@ -28,10 +28,7 @@ def electro_nucleo_sites_hsab(mol):
                is a dictionary with the following keys:
                    - atom_idx        (int)   : atom index in the molecule
                    - symbol          (str)   : atomic symbol
-                   - charge          (float) : raw Gasteiger partial charge
                    - functional_group(str)   : detected functional group
-                   - nuc_score       (float) : corrected nucleophilicity score
-                   - elec_score      (float) : corrected electrophilicity score
                    - type            (str)   : 'electrophile' or 'nucleophile'
         
     Limitation: In molecules containing both thiol (SH) and carboxylate 
@@ -116,4 +113,3 @@ def electro_nucleo_sites_hsab(mol):
  
  
     return most_electrophilic_drop, most_nucleophilic_drop
-
