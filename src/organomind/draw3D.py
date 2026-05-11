@@ -51,8 +51,16 @@ def draw_molecule_3d_streamlit(smiles, style='stick', color='spectrum',
 
 def draw_molecule_3d_jupyter(smiles, style='stick', color='spectrum',
                               width=600, height=400, background='white'):
-    """For Jupyter notebooks."""
+    """For Jupyter notebooks / GitHub rendering."""
     view = molecule_visualization(smiles, style, color, width, height, background)
-    return view.show()
+    
+    from IPython.display import display, HTML
+    html = view._make_html()
+    # Force inline script loading instead of CDN
+    html = html.replace(
+        'https://3dmol.org/build/3Dmol-min.js',
+        'https://cdn.jsdelivr.net/npm/3dmol/build/3Dmol-min.js'
+    )
+    display(HTML(html))
 
 
