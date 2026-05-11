@@ -4,7 +4,7 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 import streamlit as st
 from streamlit_ketcher import st_ketcher
-from organomind.draw3D import draw_molecule_3d
+from organomind.draw3D import draw_molecule_3d_streamlit
 from organomind.functional_groups import detect_functional_groups
 import pandas as pd
 from organomind.stereo import chiral_center, color_chiral, find_isomers
@@ -662,7 +662,7 @@ def display_results(c):
 
     if "3D drawing" in info:
         st.subheader("🧬 3D Structure")
-        draw_molecule_3d(c.smiles)
+        draw_molecule_3d_streamlit(c.smiles)
 
 # =========================
 # TABS
