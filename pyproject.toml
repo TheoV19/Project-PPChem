@@ -21,6 +21,11 @@ dependencies = [
     "pymatgen",
 ]
 
+[project.scripts]                     
+organomind-ui = "organomind.app:run"           
+
+
+
 [project.optional-dependencies]
 dev = [
     "jupyter",
