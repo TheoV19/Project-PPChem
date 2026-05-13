@@ -1,12 +1,38 @@
 [project]
 name = "OrganoMind"
 version = "0.1.0"
-dependencies = []
+description = "Cheminformatics tools for molecular analysis"
+authors = [
+    {name = "Théo Vienne"},
+    {name = "Théo Morales Crassier"},
+    {name = "Tolga Seckin"},
+    {name = "Noam Balter-Dejeux"},
+]
+requires-python = ">=3.10"
+dependencies = [
+    "rdkit",
+    "pubchempy",
+    "streamlit",
+    "pandas",
+    "py3dmol",
+    "streamlit-ketcher",
+    "pillow",
+    "plotly",
+    "pymatgen",
+]
+
+[project.optional-dependencies]
+dev = [
+    "jupyter",
+    "jupyterlab",
+    "ipykernel",
+    "pytest",
+    "pytest-timeout",
+]
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
-
 
 [tool.setuptools]
 package-dir = {"" = "src"}
