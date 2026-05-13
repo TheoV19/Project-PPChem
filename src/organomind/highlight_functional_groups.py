@@ -88,7 +88,7 @@ def add_legend_to_svg(svg, legend_items, width=800, x=0, y=0):
     svg = svg.replace("</svg>", legend_svg + "\n</svg>")
     return svg
 
-def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.svg"):
+def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.svg", show_streamlit=False):
     """
     Draws a molecule with detected functional groups highlighted.
     Each functional group gets a different color.
@@ -167,7 +167,7 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
         with open(filename, "w", encoding="utf-8") as file:
             file.write(svg)
 
-    components.html(svg, height=950, scrolling=True)
+    if show_streamlit:
+        components.html(svg, height=950, scrolling=True)
 
     return svg
-

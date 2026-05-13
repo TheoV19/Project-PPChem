@@ -140,7 +140,7 @@ def display_results(c):
     if "Functional groups" in info:
         st.subheader("🔬 Functional Groups")
         st.dataframe(detect_functional_groups(c.smiles))
-        draw_molecule_with_functional_groups(c.smiles)
+        draw_molecule_with_functional_groups((c.smiles), filename=None, show_streamlit=True)
 
     if "Aromaticity" in info:
         st.subheader("⭕ Aromaticity")
