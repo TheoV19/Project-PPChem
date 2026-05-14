@@ -56,7 +56,7 @@ with col3:
     st.markdown("🔑 CAS / SMILES")
 
 st.markdown("---")
-st.markdown("👥 **Team:** Theo Vienne · Noam Balter-Dejeux · Tolga Seckin · Theo Morales Crassier")
+st.markdown("👥 **Team:** Théo Vienne · Noam Balter-Dejeux · Tolga Seckin · Théo Morales Crassier")
 st.markdown("---")
 
 # =========================
