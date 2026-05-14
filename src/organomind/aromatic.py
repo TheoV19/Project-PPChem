@@ -1,7 +1,4 @@
-import rdkit as rd
 from rdkit import Chem 
-from rdkit.Chem import Draw
-from rdkit.Chem import AllChem
 from organomind.data.aromatic_data import aromatic_patterns
 from organomind.functional_groups import detect_functional_groups # type: ignore
 import pandas as pd #type: ignore
