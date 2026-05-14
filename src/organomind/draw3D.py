@@ -23,9 +23,7 @@ def draw_molecule_3d(smiles, style='stick', color='spectrum',
     
     components.html(view._make_html(), height=height)
 
-if __name__ == "__main__":
-    import streamlit as st
-    st.title("3D Molecule Viewer Test")
-    draw_molecule_3d("CC(=O)Oc1ccccc1C(=O)O")
+
+
 
 
