@@ -23,7 +23,7 @@ dependencies = [
 
 [project.scripts]                     
 organomind-ui = "organomind.app:run"           
-
+organomind-3d = "organomind.draw3D:run" 
 
 
 [project.optional-dependencies]

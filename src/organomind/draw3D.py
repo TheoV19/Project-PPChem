@@ -3,6 +3,14 @@ from rdkit.Chem import AllChem
 import py3Dmol # type: ignore
 import streamlit.components.v1 as components
 
+def run():
+    import subprocess
+    import sys
+    from pathlib import Path
+    app_path = Path(__file__)
+    subprocess.run([sys.executable, "-m", "streamlit", "run", str(app_path)])
+
+
 def draw_molecule_3d(smiles, style='stick', color='spectrum',
                      width=600, height=400, background='white', jupyter=False):
     mol = Chem.MolFromSmiles(smiles)
@@ -22,8 +30,6 @@ def draw_molecule_3d(smiles, style='stick', color='spectrum',
     view.zoomTo()
     
     components.html(view._make_html(), height=height)
-
-
 
 
 
