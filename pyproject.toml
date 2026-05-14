@@ -33,6 +33,7 @@ dev = [
     "ipykernel",
     "pytest",
     "pytest-timeout",
+    "pytest-cov"
 ]
 
 [build-system]
