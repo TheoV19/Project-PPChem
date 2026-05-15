@@ -41,18 +41,27 @@ Already convinced ? Let me show you how to install it and enjoy all the features
 
 ### Steps
 
-**1. Create a conda virtual environment (recommended)**
+**1. Create a CONDA virtual environment (recommended)**
 ```bash
-conda -n create env-"name" python=3.10
-conda activate env-"name"
+#Open bash or terminal
+#Name the environment as you wish and specify python 3.10
+conda create -n env.name python=3.10
+
+#Activate your environment
+conda activate env.name
 ```
 
 **2. Two ways to proceed**
 
 *A. Using the repo:*
 ```bash
+#Clone the repository
 git clone https://github.com/TheoV19/OrganoMind.git
+
+#Naviguate to the Organomind folder
 cd OrganoMind
+
+#Installs the dependencies locally in editable mode, make sure to activate your environment before doing so
 pip install . #installs the dependencies
 ```
 
@@ -66,6 +75,7 @@ pip install git+https://github.com/TheoV19/OrganoMind.git
 
 **3. Run the app**
 ```bash
+#In your terminal, you can now run the program with:
 organomind-ui
 ```
 
