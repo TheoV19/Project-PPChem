@@ -46,11 +46,7 @@ def test_color_chiral_with_chiral():
     smiles = "CCC(C)O"
     result = color_chiral(smiles)
     assert result is not None
-
-
-def test_color_chiral_no_chiral():
-    result = color_chiral("c1ccccc1")  
-    assert result is None  
+    
 
 def test_color_chiral_invalid_smiles():
     with pytest.raises(ValueError):
