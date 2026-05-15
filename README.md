@@ -53,7 +53,7 @@ conda activate env-"name"
 ```bash
 git clone https://github.com/TheoV19/OrganoMind.git
 cd OrganoMind
-pip install . (installs the dependencies)
+pip install . #installs the dependencies
 ```
 
 *B. Only using the package:*
@@ -73,7 +73,7 @@ The app will open automatically in your browser at `http://localhost:8501`.
 
 
  
----
+
  
 ### 🧠How to use🧠
  
@@ -90,13 +90,13 @@ OrganoMind supports multiple input formats. In the **Search** tab, select your s
  
 > **Tip:** SMILES input gives the most accurate structure results.
  
----
+
  
 #### 🎨Draw a molecule🎨
  
 Switch to the **Draw** tab to use the built-in Ketcher molecular editor. Draw your molecule directly on the canvas and OrganoMind will automatically identify and analyze it.
  
----
+
  
 ### 4. Select the information to display
  
@@ -112,7 +112,6 @@ Use the **sidebar** on the left to select which properties you want to compute:
 - **Point groups** — Symmetry group determination
 - **3D drawing** — Interactive 3D visualization
  
----
  
 
 
