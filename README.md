@@ -14,10 +14,17 @@ OrganoMind is a project developped as part of Practical Progamming in chemistry 
 - Determination of molecule's point group.
 
 ### 👥Contributions👥
-- Théo Vienne (https://github.com/TheoV19)
-- Noam Balter-Dejeux (https://github.com/NoamBalter)
-- Tolga Seckin (https://github.com/tolgaseckin)
-- Théo Morales Crassier (https://github.com/theo-moralescrassier)
+[![GitHub](https://img.shields.io/badge/GitHub-TheoV19-181717?logo=github)](https://github.com/TheoV19)  
+Théo Vienne
+
+[![GitHub](https://img.shields.io/badge/GitHub-NoamBalter-181717?logo=github)](https://github.com/NoamBalter)  
+Noam Balter-Dejeux
+
+[![GitHub](https://img.shields.io/badge/GitHub-tolgaseckin-181717?logo=github)](https://github.com/tolgaseckin)  
+Tolga Seckin
+
+[![GitHub](https://img.shields.io/badge/GitHub-theo--moralescrassier-181717?logo=github)](https://github.com/theo-moralescrassier)  
+Théo Morales Crassier
 
 ### 📈A useful assistant📈
 Organomind is thought as a tool to simplify the understanding of the reactivity of complex chemical compounds. By either putting directly the structure or the name or the formula or even the smile of a molecule, organomind will give you all the characteritcis you need to work on your problem.
