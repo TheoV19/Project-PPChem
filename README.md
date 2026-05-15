@@ -14,10 +14,10 @@ OrganoMind is a project developped as part of Practical Progamming in chemistry 
 - Determination of molecule's point group.
 
 ### 👥Contributions👥
-- Theo Vienne 
+- Théo Vienne 
 - Noam Balter-Dejeux
 - Tolga Seckin
-- Theo Morales Crassier
+- Théo Morales Crassier
 
 ### 📈A useful assistant📈
 Organomind is thought as a tool to simplify the understanding of the reactivity of complex chemical compounds. By either putting directly the structure or the name or the formula or even the smile of a molecule organomind will give you all the characteritcis you need to work on your problem.
@@ -41,27 +41,32 @@ Already convinced ? Let me show you how to install it and enjoy all the features
 
 ### Steps
 
-**1. Clone the repository**
+**1. Create a conda virtual environment (recommended)**
 ```bash
-git clone https://github.com/your-username/OrganoMind.git
+conda -n create env-"name" python=3.10
+conda activate env-"name"
+```
+
+**2. Two ways to proceed**
+
+*A. Using the repo:*
+```bash
+git clone https://github.com/TheoV19/OrganoMind.git
 cd OrganoMind
+pip install . (installs the dependencies)
 ```
 
-**2. Create a virtual environment (recommended)**
+*B. Only using the package:*
 ```bash
-python -m venv venv
-source venv/bin/activate        # Mac/Linux
-venv\Scripts\activate           # Windows
+pip install organomind 
+    or
+pip install git+https://github.com/TheoV19/OrganoMind.git
 ```
 
-**3. Install dependencies**
-```bash
-pip install -r requirements.txt
-```
 
-**4. Run the app**
+**3. Run the app**
 ```bash
-streamlit run code.py
+organomind-ui
 ```
 
 The app will open automatically in your browser at `http://localhost:8501`.
