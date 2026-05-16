@@ -130,7 +130,7 @@ Use the **sidebar** on the left to select which properties you want to compute:
 - **Point groups** — Symmetry group determination
 - **3D drawing** — Interactive 3D visualization
 
-### Requirements
+## Requirements
 
 OrganoMind requires the following dependencies, which are automatically installed when you install the package:
 
@@ -188,7 +188,9 @@ python3 -m pip install --upgrade pip
 ```
 
 
+## 📄 License
 
+MIT License
 
 
 
