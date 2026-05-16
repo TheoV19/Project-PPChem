@@ -4,9 +4,6 @@
 OrganoMind
 </h1>
 
-<p align="center">
-Organic Chemistry Assistant powered by RDKit
-</p>
 
 
 ## 📚General informations📚
