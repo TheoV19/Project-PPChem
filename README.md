@@ -130,21 +130,62 @@ Use the **sidebar** on the left to select which properties you want to compute:
 - **Point groups** — Symmetry group determination
 - **3D drawing** — Interactive 3D visualization
 
+### Requirements
+
+OrganoMind requires the following dependencies, which are automatically installed when you install the package:
+
+- `rdkit`
+- `pubchempy`
+- `streamlit`
+- `pandas`
+- `py3dmol`
+- `streamlit-ketcher`
+- `pillow`
+- `plotly`
+- `pymatgen`
+
+If you encounter missing package errors, you can install them manually:
+```bash
+pip install rdkit pubchempy streamlit pandas py3dmol streamlit-ketcher pillow plotly pymatgen
+```
+
 ## Need help ?
-### Requirements:
-- rdkit
-- pubchempy
-- streamlit
-- pandas
-- py3dmol
-- streamlit-ketcher
-- pillow
-- plotly
-- pymatgen
- 
- 
+If you encounter issues or the program doesn't work, try the following steps:
 
-
+1. Verify your active environment
+Make sure you are working in the environment where OrganoMind is installed.
+```bash
+# Check which Python executable is currently active
+which python
+```
+If it's not the correct environment, activate it:
+```bash
+# Activate your conda environment
+conda activate your_env_name
+```
+2. Check and update OrganoMind
+```bash
+pip show organomind
+```
+If needed, update to the latest version:
+```bash
+pip install --upgrade git+https://github.com/TheoV19/OrganoMind.git
+```
+If problems continue, try uninstalling and reinstalling OrganoMind:
+```bash
+pip uninstall organomind
+pip install git+https://github.com/TheoV19/OrganoMind.git
+```
+3. Update pip if necessary
+Sometimes, issues may arise due to an outdated pip. Thus, to update pip:
+- For virtual environments
+```bash
+pip install --upgrade pip
+```
+- For Linux or macOS systems
+```bash
+python3 -m pip install --upgrade pip
+```
 
 
 
