@@ -46,15 +46,6 @@ Already convinced ? Let us show you how to install it and enjoy all the features
 ### Prerequisites
 - Python 3.10 or higher
 - pip
-- rdkit
-- pubchempy
-- streamlit
-- pandas
-- py3dmol
-- streamlit-ketcher
-- pillow
-- plotly
-- pymatgen
 
 ### Steps
 
@@ -102,9 +93,9 @@ The app will open automatically in your browser at `http://localhost:8501`.
  
 
  
-### 🧠How to use🧠
+## 🧠How to use🧠
  
-#### ✍️Write your molecule anyway you want✍️
+### ✍️Write your molecule anyway you want✍️
 OrganoMind supports multiple input formats. In the Search tab, select your search type and enter your query:
  
 | Input type | Example |
@@ -119,13 +110,13 @@ OrganoMind supports multiple input formats. In the Search tab, select your searc
  
 
  
-#### 🎨Draw a molecule🎨
+### 🎨Draw a molecule🎨
  
 Switch to the Draw tab to use the built-in Ketcher molecular editor. Draw your molecule directly on the canvas and OrganoMind will automatically identify and analyze it.
  
 
  
-### 4. Select the information to display
+### Select the information to display
  
 Use the **sidebar** on the left to select which properties you want to compute:
  
@@ -138,6 +129,18 @@ Use the **sidebar** on the left to select which properties you want to compute:
 - **Nucleophilicity / Electrophilicity** — Reactive site detection with HSAB-based level attribution
 - **Point groups** — Symmetry group determination
 - **3D drawing** — Interactive 3D visualization
+
+## Need help ?
+### Requirements:
+- rdkit
+- pubchempy
+- streamlit
+- pandas
+- py3dmol
+- streamlit-ketcher
+- pillow
+- plotly
+- pymatgen
  
  
 
