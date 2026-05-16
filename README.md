@@ -70,7 +70,7 @@ git clone https://github.com/TheoV19/OrganoMind.git
 cd path/to/organomind
 
 #Installs the dependencies locally in editable mode, make sure to activate your environment before doing so
-pip install . #installs the dependencies
+pip install .
 ```
 
 *B. Only using the package:*
