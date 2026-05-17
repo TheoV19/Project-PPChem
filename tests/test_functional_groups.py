@@ -6,7 +6,7 @@ def test_functional_groups_found():
     smiles = "CC(=O)O"
     result = detect_functional_groups(smiles)
     assert "carboxylic acid" in result
-    assert result["carboxylic_acid"]["amount"] == 1
+    assert result["carboxylic acid"]["amount"] == 1
 
 def test_functional_groups_not_found():
     smiles = "O"
