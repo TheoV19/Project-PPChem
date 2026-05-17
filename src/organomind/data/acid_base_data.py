@@ -1,5 +1,5 @@
 acid_base_info = {
-    "carboxylic_acid": {
+    "carboxylic acid": {
         "type": "acidic",
         "strength": "weak",
         "pka_range": "4-5",
