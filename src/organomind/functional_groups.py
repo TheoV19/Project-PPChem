@@ -28,9 +28,11 @@ def detect_functional_groups(smiles, return_df = True):
                 "amount": len(matches),
                 "position": matches
             }
-    df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in groups_present.items()])
-
-    if return_df:
-        return df
 
     return groups_present
+
+def detect_functional_groups_df(smiles):
+    group_df = detect_functional_groups(smiles)
+    df = pd.DataFrame([{"Functional Group": group, "Count": data["amount"], "Position": data["position"]} for group, data in group_df.items()])
+
+    return df

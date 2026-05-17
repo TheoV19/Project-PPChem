@@ -1,4 +1,9 @@
-# -            OrganoMind           -
+![OrganoMind Logo](image.png)
+
+<h1 align="center">
+OrganoMind
+</h1>
+
 
 
 ## 📚General informations📚
@@ -14,24 +19,32 @@ OrganoMind is a project developped as part of Practical Progamming in chemistry 
 - Determination of molecule's point group.
 
 ### 👥Contributions👥
-- Theo Vienne 
-- Noam Balter-Dejeux
-- Tolga Seckin
-- Theo Morales Crassier
+Théo Vienne
+[![GitHub](https://img.shields.io/badge/GitHub-TheoV19-181717?logo=github)](https://github.com/TheoV19)  
+
+Noam Balter-Dejeux
+[![GitHub](https://img.shields.io/badge/GitHub-NoamBalter-181717?logo=github)](https://github.com/NoamBalter)  
+
+Tolga Seckin
+[![GitHub](https://img.shields.io/badge/GitHub-tolgaseckin-181717?logo=github)](https://github.com/tolgaseckin)  
+
+Théo Morales Crassier
+[![GitHub](https://img.shields.io/badge/GitHub-theo--moralescrassier-181717?logo=github)](https://github.com/theo-moralescrassier)  
+
 
 ### 📈A useful assistant📈
-Organomind is thought as a tool to simplify the understanding of the reactivity of complex chemical compounds. By either putting directly the structure or the name or the formula or even the smile of a molecule organomind will give you all the characteritcis you need to work on your problem.
+Organomind is thought as a tool to simplify the understanding of the reactivity of complex chemical compounds. By either putting directly the structure or the name or the formula or even the smile of a molecule, organomind will give you all the characteritcis you need to work on your problem.
 
 #### You need compute a reaction path for a synthesis ? 
-Put your reactants in organomind and it will tell you which group of your molecule are nucleophilic and electrophilic with all functionnal groups, allowing you to determine accuratly which part will react and with what.
+Put your reactants in organomind and it will tell you which group of your molecule are nucleophilic and electrophilic with all functional groups, allowing you to determine accuratly which part will react and with what.
 
 #### Struggle with a MO diagram ? 
-Organomind will give you the point group allowing you to simplify you work and focus on the important part of your search.
+Organomind will give you the point group allowing to simplify your work and focus on the important part of your search.
 
 #### Working on a stereospcific synthesis ?
 Organomind will give you the number of chiral centers and 2D view of them with the number of stable isomers which then allow you properly classify the stereo-isomers of your molecule.
 
-Already convinced ? Let me show you how to install it and enjoy all the features of this framework ! 🎉
+Already convinced ? Let us show you how to install it and enjoy all the features of this framework ! 🎉
 
 ## ⚙️ Installation ⚙️
 
@@ -41,39 +54,54 @@ Already convinced ? Let me show you how to install it and enjoy all the features
 
 ### Steps
 
-**1. Clone the repository**
+**1. Create a CONDA virtual environment (recommended)**
 ```bash
-git clone https://github.com/your-username/OrganoMind.git
-cd OrganoMind
+#Open bash or terminal
+#Name the environment as you wish and specify python 3.10
+conda create -n env.name python=3.10
+
+#Activate your environment
+conda activate env.name
 ```
 
-**2. Create a virtual environment (recommended)**
+**2. Two ways to proceed**
+
+*A. Using the repo:*
 ```bash
-python -m venv venv
-source venv/bin/activate        # Mac/Linux
-venv\Scripts\activate           # Windows
+#Clone the repository
+git clone https://github.com/TheoV19/OrganoMind.git
+
+#Naviguate to the Organomind folder
+cd path/to/organomind
+
+#Installs the dependencies locally in editable mode, make sure to activate your environment before doing so
+pip install .
 ```
 
-**3. Install dependencies**
+*B. Only using the package:*
 ```bash
-pip install -r requirements.txt
+pip install organomind 
+    or
+pip install git+https://github.com/TheoV19/OrganoMind.git
 ```
 
-**4. Run the app**
+
+**3. Run the app**
 ```bash
-streamlit run code.py
+#In your terminal, you can now run the program with:
+organomind-ui
 ```
 
 The app will open automatically in your browser at `http://localhost:8501`.
 
 
  
----
+
  
-### 🧠How to use🧠
+## 🧠How to use🧠
  
-#### ✍️Write your molecule anyway you want✍️
-OrganoMind supports multiple input formats. In the **Search** tab, select your search type and enter your query:
+### ✍️Write your molecule anyway you want✍️
+OrganoMind supports multiple input formats. In the Search tab, select your search type and enter your query:
  
 | Input type | Example |
 |------------|---------|
@@ -85,15 +113,15 @@ OrganoMind supports multiple input formats. In the **Search** tab, select your s
  
 > **Tip:** SMILES input gives the most accurate structure results.
  
----
+
  
-#### 🎨Draw a molecule🎨
+### 🎨Draw a molecule🎨
  
-Switch to the **Draw** tab to use the built-in Ketcher molecular editor. Draw your molecule directly on the canvas and OrganoMind will automatically identify and analyze it.
+Switch to the Draw tab to use the built-in Ketcher molecular editor. Draw your molecule directly on the canvas and OrganoMind will automatically identify and analyze it.
  
----
+
  
-### 4. Select the information to display
+### Select the information to display
  
 Use the **sidebar** on the left to select which properties you want to compute:
  
@@ -106,14 +134,68 @@ Use the **sidebar** on the left to select which properties you want to compute:
 - **Nucleophilicity / Electrophilicity** — Reactive site detection with HSAB-based level attribution
 - **Point groups** — Symmetry group determination
 - **3D drawing** — Interactive 3D visualization
- 
----
- 
+
+## Requirements
+
+OrganoMind requires the following dependencies, which are automatically installed when you install the package:
+
+- `rdkit`
+- `pubchempy`
+- `streamlit`
+- `pandas`
+- `py3dmol`
+- `streamlit-ketcher`
+- `pillow`
+- `plotly`
+- `pymatgen`
+
+If you encounter missing package errors, you can install them manually:
+```bash
+pip install rdkit pubchempy streamlit pandas py3dmol streamlit-ketcher pillow plotly pymatgen
+```
+
+## Need help ?
+If you encounter issues or the program doesn't work, try the following steps:
+
+1. Verify your active environment
+Make sure you are working in the environment where OrganoMind is installed.
+```bash
+# Check which Python executable is currently active
+which python
+```
+If it's not the correct environment, activate it:
+```bash
+# Activate your conda environment
+conda activate your_env_name
+```
+2. Check and update OrganoMind
+```bash
+pip show organomind
+```
+If needed, update to the latest version:
+```bash
+pip install --upgrade git+https://github.com/TheoV19/OrganoMind.git
+```
+If problems continue, try uninstalling and reinstalling OrganoMind:
+```bash
+pip uninstall organomind
+pip install git+https://github.com/TheoV19/OrganoMind.git
+```
+3. Update pip if necessary
+Sometimes, issues may arise due to an outdated pip. Thus, to update pip:
+- For virtual environments
+```bash
+pip install --upgrade pip
+```
+- For Linux or macOS systems
+```bash
+python3 -m pip install --upgrade pip
+```
 
 
+## 📄 License
 
-
-
+MIT License
 
 
 

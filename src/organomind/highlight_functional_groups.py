@@ -101,6 +101,9 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
 
     detected_groups = detect_functional_groups(smiles, return_df=False)
 
+    if not detected_groups:
+        return None
+    
     colors = [
 
         (1.0, 0.6, 0.6),
@@ -148,6 +151,7 @@ def draw_molecule_with_functional_groups(smiles, filename="highlighted_molecule.
                     bond_idx = mol_bond.GetIdx()
                     highlight_bonds.add(bond_idx)
                     bond_colors[bond_idx] = color
+    
 
     drawer = rdMolDraw2D.MolDraw2DSVG(900, 900)
 

@@ -3,7 +3,7 @@ import pubchempy as pcp  # type: ignore
 import streamlit as st
 from streamlit_ketcher import st_ketcher
 from organomind.draw3D import draw_molecule_3d
-from organomind.functional_groups import detect_functional_groups
+from organomind.functional_groups import detect_functional_groups_df
 from organomind.stereo import chiral_center, color_chiral, find_isomers
 from organomind.acidity import acid_base_estimate
 from organomind.aromatic import detect_aromatic
@@ -56,7 +56,7 @@ with col3:
     st.markdown("🔑 CAS / SMILES")
 
 st.markdown("---")
-st.markdown("👥 **Team:** Theo Vienne · Noam Balter-Dejeux · Tolga Seckin · Theo Morales Crassier")
+st.markdown("👥 **Team:** Théo Vienne · Noam Balter-Dejeux · Tolga Seckin · Théo Morales Crassier")
 st.markdown("---")
 
 # =========================
@@ -136,10 +136,9 @@ def display_results(c):
             st.image(img, caption="Highlighted chiral centers")
 
 
-
     if "Functional groups" in info:
         st.subheader("🔬 Functional Groups")
-        st.dataframe(detect_functional_groups(c.smiles))
+        st.dataframe(detect_functional_groups_df(c.smiles))
         draw_molecule_with_functional_groups((c.smiles), filename=None, show_streamlit=True)
 
     if "Aromaticity" in info:

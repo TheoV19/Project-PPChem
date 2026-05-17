@@ -23,7 +23,7 @@ dependencies = [
 
 [project.scripts]                     
 organomind-ui = "organomind.app:run"           
-
+organomind-3d = "organomind.draw3D:run" 
 
 
 [project.optional-dependencies]
@@ -33,6 +33,7 @@ dev = [
     "ipykernel",
     "pytest",
     "pytest-timeout",
+    "pytest-cov"
 ]
 
 [build-system]
@@ -44,3 +45,8 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
